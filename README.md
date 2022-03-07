@@ -1,7 +1,7 @@
-# Ecommerce
+# Laravel e-commerce
 ![Status](https://img.shields.io/badge/Status-5%25-orange)
 
-Laravel Ecommerce project
+Laravel e-commerce project
 
 ## Stack
 - [Nginx](https://www.nginx.com/)
