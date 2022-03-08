@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
+use App\Models\Product;
 
 class CartController extends Controller
 {
@@ -14,20 +15,18 @@ class CartController extends Controller
         return $products;
     }
 
-    public function addToCart($id){
-        $id = intval($id);
+    public function addToCart(Product $product){
+        //$id = intval($id);
+        //$product->quantity = 1;
+        //dd($product);
         $collection = collect(json_decode(Cookie::get('cart')));
 
-        if ($collection->contains('id', $id)){
-            $prueba = $collection->firstWhere('id', $id);
-            $prueba->quantity = 3;
-            //$prueba->save();
-            dd($collection);
+        if ($collection->contains('id', $product->id)){
+            $searchProduct = $collection->firstWhere('id', $product->id);
+            $searchProduct->quantity++;
         }else{
-            $collection->push([
-                'id' => $id,
-                'quantity' => 1,
-            ]);
+            $product->quantity = 1;
+            $collection->push($product);
         }
 
         /*$collection = collect([
@@ -36,6 +35,7 @@ class CartController extends Controller
                 'quantity' => 1,
             ]
         ]);*/
+        dd($collection);
         Cookie::queue('cart', $collection->toJson(), 10);
 
 

@@ -22,7 +22,7 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index') ;
 
 //cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index') ;
-Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add') ;
+Route::get('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add') ;
 
 
 
