@@ -9,6 +9,7 @@ Laravel e-commerce project
 - [PEST](https://pestphp.com/)
 # Getting Started
 ### Prerequisites
+- [Composer](https://getcomposer.org/)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -22,6 +23,11 @@ cd laravel-ecommerce
 Create .env file and edit
 ```
 cp .env.example .env
+```
+
+Run composer install:
+```
+composer install
 ```
 
 ### 🚀 Start app
@@ -42,5 +48,11 @@ vendor/bin/sail npm i && dev
 ### 🛑 Stop app
 Stop sail:
 ```
-./vendor/bin/sail down
+vendor/bin/sail down
+```
+
+
+### Recommended alias
+```
+alias sail="[ -f sail ] && bash sail || bash vendor/bin/sail"
 ```
