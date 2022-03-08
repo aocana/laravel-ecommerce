@@ -43,10 +43,10 @@ Route::prefix('p4dmin')->group(  function () {
         ->name('admin.index');
         /*->middleware('auth', 'role:admin');*/
 
-    Route::resource('/products', ProductController::class);
+    Route::resource('/products', ProductController::class, ['as' => 'admin']);
         /*->middleware('auth', 'role:admin');*/
 
-    Route::resource('/categories', CategoryController::class);
+    Route::resource('/categories', CategoryController::class, ['as' => 'admin']);
         /*->middleware('auth', 'role:admin');*/
 });
 
