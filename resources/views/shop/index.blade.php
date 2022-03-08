@@ -1,5 +1,10 @@
 <x-app-layout>
     <p>Shop</p>
+    <p>
+        @if (session('message'))
+            <p>{{ session('message') }}</p>
+        @endif
+    </p>
     <div class="grid gap-4 grid-cols-3">
         @forelse($products as $product)
             <div>
