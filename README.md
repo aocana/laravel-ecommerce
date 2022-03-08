@@ -4,10 +4,9 @@
 Laravel e-commerce project
 
 ## Stack
-- [Nginx](https://www.nginx.com/)
 - [Laravel](https://laravel.com/)
 - [PostgreSQL](https://www.postgresql.org/)
-
+- [PEST](https://pestphp.com/)
 # Getting Started
 ### Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -29,13 +28,13 @@ cp .env.example .env
 
 Run sail:
 ```
-./vendor/bin/sail up -d
+vendor/bin/sail up -d
 ```
 
 Run:
 ```
-./vendor/bin/sail artisan key:generate
-./vendor/bin/sail npm i & dev
+vendor/bin/sail artisan key:generate
+vendor/bin/sail npm i && dev
 ```
 
 **App will be available on `localhost:80`**
