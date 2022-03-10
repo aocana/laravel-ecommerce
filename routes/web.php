@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home.index');
-})->name('home') ;
+})->name('home');
 
 //shop
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index') ;
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
 //cart
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index') ;
-Route::get('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add') ;
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 
 
 
@@ -38,18 +38,18 @@ Route::get('/dashboard', function () {
  | Admin Routes
  |-----------------
  */
-Route::prefix('p4dmin')->group(  function () {
+Route::prefix('p4dmin')->group(function () {
     Route::get('/', AdminController::class)
         ->name('admin.index');
-        /*->middleware('auth', 'role:admin');*/
+    /*->middleware('auth', 'role:admin');*/
 
     Route::resource('/products', ProductController::class, ['as' => 'admin']);
-        /*->middleware('auth', 'role:admin');*/
+    /*->middleware('auth', 'role:admin');*/
 
     Route::resource('/categories', CategoryController::class, ['as' => 'admin']);
-        /*->middleware('auth', 'role:admin');*/
+    /*->middleware('auth', 'role:admin');*/
 });
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

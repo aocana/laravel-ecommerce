@@ -16,10 +16,11 @@ class CartController extends Controller
         return view('cart.index', compact('products'));
     }
 
-    public function addToCart(Product $product){
+    public function addToCart(Product $product)
+    {
         $collection = collect(json_decode(Cookie::get('cart')));
 
-        if (!$collection->contains('id', $product->id)){
+        if (!$collection->contains('id', $product->id)) {
             $collection->push($product);
             //$product->quantity = 1;
         }
