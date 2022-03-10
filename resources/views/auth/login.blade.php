@@ -51,6 +51,7 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+            <p class="text-center mt-4">or <a href="{{ route('register') }}" class="font-bold text-violet-500">Register</a></p>
         </form>
     </x-auth-card>
 </x-guest-layout>

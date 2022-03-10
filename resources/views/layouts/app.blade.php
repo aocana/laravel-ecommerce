@@ -17,11 +17,11 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main>
+            <main class="mt-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {{ $slot }}
             </main>
         </div>
