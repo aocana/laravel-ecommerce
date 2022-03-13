@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
@@ -13,5 +14,12 @@ class ShopController extends Controller
             ->get();
 
         return view('shop.index', compact('products'));
+    }
+
+    public function search(Request $request): View
+    {
+        return view('shop.index', [
+            'products' => Product::searchFilter($request->q)
+        ]);
     }
 }

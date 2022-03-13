@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -20,12 +20,14 @@ class Product extends Model
         'is_visible',
     ];
 
-    /**
-     * Get the route key for the model.
-     * @return string
-     */
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
+
+    static function searchFilter($product)
+    {
+        return self::search($product)->get();
+    }
+
 }
