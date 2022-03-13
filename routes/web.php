@@ -38,18 +38,16 @@ Route::get('/dashboard', function () {
  | Admin Routes
  |-----------------
  */
-Route::prefix('p4dmin')->group(function () {
+Route::prefix('p4dmin')->name('admin.')->group(function () {
     Route::get('/', AdminController::class)
-        ->name('admin.index');
+        ->name('index');
     /*->middleware('auth', 'role:admin');*/
 
-    Route::resource('/products', ProductController::class, ['as' => 'admin']);
+    Route::resource('/products', ProductController::class);
     /*->middleware('auth', 'role:admin');*/
 
-    Route::resource('/categories', CategoryController::class, ['as' => 'admin']);
+    Route::resource('/categories', CategoryController::class);
     /*->middleware('auth', 'role:admin');*/
 });
-
-
 
 require __DIR__ . '/auth.php';
