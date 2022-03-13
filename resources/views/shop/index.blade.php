@@ -20,4 +20,5 @@
             <p>No products found</p>
         @endforelse
     </div>
+    <p>{{ $products->links() }}</p>
 </x-app-layout>

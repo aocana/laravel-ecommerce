@@ -11,7 +11,7 @@ class ShopController extends Controller
     public function index(): View
     {
         $products = Product::where('is_visible', 1)
-            ->get();
+            ->paginate(12);
 
         return view('shop.index', compact('products'));
     }

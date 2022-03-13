@@ -27,7 +27,7 @@ class Product extends Model
 
     static function searchFilter($product)
     {
-        return self::search($product)->get();
+        return self::search($product)->paginate(12);
     }
 
 }
