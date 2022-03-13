@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        $products = Product::paginate(8);
+        $products = Product::paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -26,9 +26,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.products.create');
     }
 
     /**
