@@ -19,7 +19,7 @@ class ShopController extends Controller
     public function search(Request $request): View
     {
         return view('shop.index', [
-            'products' => Product::searchFilter($request->q)
+            'products' => Product::searchFilter($request->input('query'))
         ]);
     }
 }
