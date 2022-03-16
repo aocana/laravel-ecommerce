@@ -25,9 +25,13 @@ class Product extends Model
         return 'slug';
     }
 
-    static function searchFilter($product)
+    public function shouldBeSearchable()
     {
-        return self::search($product)->paginate(12);
+        return $this->is_visible === true;
     }
 
+    static function searchFilter($product)
+    {
+        return self::search($product)->paginate(12)->withQueryStrings();
+    }
 }
