@@ -18,8 +18,11 @@ class ShopController extends Controller
 
     public function search(Request $request): View
     {
+        //$options['sort'] = ["price:asc"];
+        //dd(Product::searchFilter('', $options));
+
         return view('shop.index', [
-            'products' => Product::searchFilter($request->input('query'))
+            'products' => Product::searchFilter($request->input('query'), $options)
         ]);
     }
 }

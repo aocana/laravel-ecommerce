@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
@@ -25,13 +26,31 @@ class Product extends Model
         return 'slug';
     }
 
-    public function shouldBeSearchable()
+    public function sortableAttributes()
+    {
+        return ['price'];
+    }
+
+    public function shouldBeSearchable(): bool
     {
         return $this->is_visible === true;
     }
 
-    static function searchFilter($product)
+    public function toSearchableArray(): array
     {
-        return self::search($product)->paginate(12)->withQueryStrings();
+        return [
+            'name' => $this->name,
+            'price' => $this->price,
+        ];
+    }
+
+    static function searchFilter($query, $options)
+    {
+        $search =  self::search($query, function ($meilisearch, $query) use ($options) {
+            $meilisearch->search('', $options);
+        })
+            ->get();
+        /* ->paginate(9); */
+        return $search;
     }
 }
