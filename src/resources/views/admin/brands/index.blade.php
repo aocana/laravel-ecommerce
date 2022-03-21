@@ -7,7 +7,7 @@
             </svg>
         </a>
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-6/12">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -26,22 +26,27 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
+                                            @if( $brand->file_path)
                                             <img class="h-10 w-10 rounded-full" src="{{ $brand->file_path }}" alt="{{ $brand->name }}">
+                                            @endif
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">{{ $brand->name }}</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
+                                    <a href="{{ route('admin.brands.edit', $brand) }}" class="text-indigo-600 hover:text-indigo-900 p-5">Edit</a>
+                                    <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @empty
                             <p>No brands created</p>
                             @endforelse
-
-
                         </tbody>
                     </table>
                 </div>

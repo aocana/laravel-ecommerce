@@ -20,6 +20,7 @@ return new class extends Migration
             //$table->integer('parent_id');
             $table->string('slug')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

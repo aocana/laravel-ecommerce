@@ -2,87 +2,53 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Brand;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Brand\BrandCreateRequest;
+use App\Http\Requests\Brand\BrandUpdateRequest;
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(): View
     {
         $brands = Brand::paginate(10);
         return view('admin.brands.index', compact('brands'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(): View
     {
         return view('admin.brands.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(BrandCreateRequest $request): RedirectResponse
     {
-        //
+        $category = Brand::create($request->validated());
+        return redirect()
+            ->route('admin.brands.index')
+            ->with('succes', 'Brand created succesfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Brand $brand)
+    public function edit(Brand $brand): View
     {
-        //
+        return view('admin.brands.edit', compact('brand'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Brand $brand)
+    public function update(BrandUpdateRequest $request, Brand $brand): RedirectResponse
     {
-        //
+        $brand->update($request->validated());
+        return redirect()
+            ->route('admin.brands.index')
+            ->with('succes', 'Brand updated succesfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Brand $brand)
+    public function destroy(Brand $brand): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Brand $brand)
-    {
-        //
+        $brand->delete();
+        return redirect()
+            ->route('admin.brands.index')
+            ->with('succes', 'Brand deleted succesfullly');
     }
 }
