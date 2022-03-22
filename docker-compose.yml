@@ -22,6 +22,7 @@ services:
 
   pgsql:
     image: postgres:14-alpine3.15
+    container_name: pgsql
     ports:
       - 5432:5432
     environment:
@@ -31,7 +32,7 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: pgsql
     volumes:
-      - ./pgsql:/var/lib/postgresql/data
+      - ./pgsql:/var/lib/postgresql/data 
     networks:
       - laravel
 
@@ -58,6 +59,7 @@ services:
 
   meilisearch:
     image: getmeili/meilisearch:latest
+    container_name: meilisearch
     ports:
       - "${FORWARD_MEILISEARCH_PORT:-7700}:7700"
     volumes:

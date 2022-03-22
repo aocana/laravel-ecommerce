@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class BrandController extends Controller
 {
@@ -13,9 +14,10 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $brands = Brand::paginate(10);
+        return view('admin.brands.index', compact('brands'));
     }
 
     /**
@@ -23,9 +25,9 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.brands.create');
     }
 
     /**

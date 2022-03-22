@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+
 
 /*
 |---------------
@@ -41,6 +43,8 @@ Route::prefix('p4dmin')->name('admin.')->group(function () {
 
     Route::resource('/categories', CategoryController::class);
     /*->middleware('auth', 'role:admin');*/
+
+    Route::resource('/brands', BrandController::class);
 });
 
 
