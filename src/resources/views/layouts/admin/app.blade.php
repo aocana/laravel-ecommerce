@@ -49,6 +49,14 @@
                     <span class="mx-4 font-medium">Categories</span>
                 </x-admin-nav-link>
 
+                <x-admin-nav-link :href="route('admin.brands.index')" :active="request()->routeIs('admin.brands.index')">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="mx-4 font-medium">Brands</span>
+                </x-admin-nav-link>
+
                 <hr class="my-6 border-gray-200 dark:border-gray-600" />
 
                 <x-admin-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
@@ -71,7 +79,7 @@
         </div>
     </div>
 
-    <div class="py-16 px-16">
+    <div class="py-16 px-16 w-full">
         {{$slot}}
     </div>
 

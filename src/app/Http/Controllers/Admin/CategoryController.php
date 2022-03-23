@@ -6,14 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
     public function index(): View
     {
-        $categories = Category::paginate(10);
+        $categories = Category::paginate(20);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -31,39 +30,28 @@ class CategoryController extends Controller
             ->with('succes', 'Category created succesfully');
     }
 
-    public function show(Category $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Category $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        dd($category);
+        return view('admin.categories.form', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $id)
+    public function update(CategoryRequest $request, Category $id): RedirectResponse
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update($request->validated());
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('succes', 'Category updated succesfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $id)
+    public function destroy(Category $id): RedirectResponse
     {
-        //
+        Category::destroy($id);
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('succes', 'Category deleted succesfully');
     }
 }

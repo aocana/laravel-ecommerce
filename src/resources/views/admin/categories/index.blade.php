@@ -7,7 +7,7 @@
             </svg>
         </a>
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-6/12">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -35,7 +35,15 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <!-- <a href="{{ route('admin.categories.destroy', $category) }}" class="text-red-600 hover:text-red-900">Delete</a> -->
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @empty

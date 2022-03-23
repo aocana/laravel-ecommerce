@@ -41,10 +41,12 @@ Route::prefix('p4dmin')->name('admin.')->group(function () {
     Route::resource('/products', ProductController::class);
     /*->middleware('auth', 'role:admin');*/
 
-    Route::resource('/categories', CategoryController::class);
+    Route::resource('/categories', CategoryController::class)
+        ->except(['show']);
     /*->middleware('auth', 'role:admin');*/
 
-    Route::resource('/brands', BrandController::class);
+    Route::resource('/brands', BrandController::class)
+        ->except(['show']);
 });
 
 
