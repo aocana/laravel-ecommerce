@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -30,16 +31,15 @@ class CategoryController extends Controller
             ->with('succes', 'Category created succesfully');
     }
 
-    public function edit(Category $id)
+    public function edit(Category $category): View
     {
-        $category = Category::findOrFail($id);
-        dd($category);
-        return view('admin.categories.form', compact('category'));
+        $category = Category::findOrFail($category->id);
+        return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(CategoryRequest $request, Category $id): RedirectResponse
+    public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
-        $category = Category::findOrFail($id);
+        $category = Category::findOrFail($category->id);
         $category->update($request->validated());
 
         return redirect()
@@ -47,9 +47,9 @@ class CategoryController extends Controller
             ->with('succes', 'Category updated succesfully');
     }
 
-    public function destroy(Category $id): RedirectResponse
+    public function destroy(Category $category): RedirectResponse
     {
-        Category::destroy($id);
+        Category::destroy($category->id);
         return redirect()
             ->route('admin.categories.index')
             ->with('succes', 'Category deleted succesfully');
