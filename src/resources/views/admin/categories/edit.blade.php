@@ -27,7 +27,7 @@
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror
             </div>
-            <input type="text" name="id" value="{{$category->id}}" hidden>
+            <input type="hidden" name="id" value="{{$category->id}}">
         </div>
 
         <div class="flex justify-start mt-6">

@@ -896,6 +896,9 @@ select {
 .gap-8 {
   gap: 2rem;
 }
+.gap-5 {
+  gap: 1.25rem;
+}
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1040,6 +1043,9 @@ select {
 }
 .p-6 {
   padding: 1.5rem;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .px-4 {
   padding-left: 1rem;
