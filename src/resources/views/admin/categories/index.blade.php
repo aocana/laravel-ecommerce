@@ -23,7 +23,7 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($categories as $category)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6  whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
                                             @if( $category->file_path)
@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
+                                <td class="px-6 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
                                     <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900 p-5">Edit</a>
                                     <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
                                         @csrf

@@ -23,7 +23,7 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($brands as $brand)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
                                             @if( $brand->file_path)
@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
+                                <td class="px-6 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
                                     <a href="{{ route('admin.brands.edit', $brand) }}" class="text-indigo-600 hover:text-indigo-900 p-5">Edit</a>
                                     <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST">
                                         @csrf
