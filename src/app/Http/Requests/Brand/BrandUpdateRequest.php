@@ -22,7 +22,7 @@ class BrandUpdateRequest extends FormRequest
         $brand = request('brand');
         return [
             'name' => 'required|max:40|min:3',
-            'file_path' => "nullable|min:3|max:250|unique:categories,file_path,$brand->id",
+            'image' => "nullable|min:3|max:250|unique:categories,image,$brand->id",
             'slug' => "required|min:0|max:40|unique:categories,slug,$brand->id"
         ];
     }

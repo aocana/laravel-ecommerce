@@ -26,8 +26,8 @@
                                 <td class="px-6  whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
-                                            @if( $category->file_path)
-                                            <img class="h-10 w-10 rounded-full" src="{{ $category->file_path }}" alt="{{ $category->name }}">
+                                            @if( $category->image)
+                                            <img class="h-10 w-10 rounded-full" src="{{ asset($category->image) }}" alt="{{ $category->name }}">
                                             @endif
                                         </div>
                                         <div class="ml-4">

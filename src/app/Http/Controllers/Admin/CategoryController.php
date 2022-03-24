@@ -8,9 +8,15 @@ use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Services\FileService;
 
 class CategoryController extends Controller
 {
+    public function __construct(FileService $fileService)
+    {
+        $this->fileService = $fileService;
+    }
+
     public function index(): View
     {
         $categories = Category::paginate(20);
@@ -24,7 +30,12 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request): RedirectResponse
     {
-        $category = Category::create($request->validated());
+        //$request['image'] = 'aaaaaa';
+        $validatedData = $request->validated();
+        //dd($validatedData);
+        $validatedData->image = $this->fileService->upload('categories', $request->image);
+        $category = Category::create($validatedData);
+
         return redirect()
             ->route('admin.categories.index')
             ->with('succes', 'Category created succesfully');

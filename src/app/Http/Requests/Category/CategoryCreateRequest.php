@@ -23,8 +23,8 @@ class CategoryCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:40',
-            'file_path' => 'unique:categories,file_path|nullable|min:3|max:250',
-            'slug' => 'unique:categories,slug|required|min:3|max:40'
+            'image' => 'unique:categories,image|mimes:png|nullable|min:3|max:250',
+            'slug' => 'required|unique:categories,slug|min:3|max:40'
         ];
     }
 }
