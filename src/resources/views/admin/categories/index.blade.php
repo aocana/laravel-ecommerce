@@ -25,11 +25,11 @@
                             <tr>
                                 <td class="px-6  whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10">
-                                            @if( $category->image)
-                                            <img class="h-10 w-10 rounded-full" src="{{ asset($category->image) }}" alt="{{ $category->name }}">
-                                            @endif
+                                        @if( $category->image)
+                                        <div class="flex-shrink-0 h-20 w-20">
+                                            <img class="h-20 w-20 rounded-full" src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
                                         </div>
+                                        @endif
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">{{ $category->name }}</div>
                                         </div>

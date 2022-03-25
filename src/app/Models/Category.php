@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'file_path', 'slug'];
+    protected $fillable = ['name', 'image', 'slug'];
 
     /**
      * Get the route key for the model.

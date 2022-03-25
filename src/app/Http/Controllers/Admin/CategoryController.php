@@ -30,10 +30,9 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request): RedirectResponse
     {
-        //$request['image'] = 'aaaaaa';
         $validatedData = $request->validated();
-        //dd($validatedData);
-        $validatedData->image = $this->fileService->upload('categories', $request->image);
+        $validatedData['image'] = $this->fileService->upload('categories', $request->image);
+
         $category = Category::create($validatedData);
 
         return redirect()
@@ -48,7 +47,9 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
-        $category->update($request->validated());
+        $validatedData = $request->validated();
+        $validatedData['image'] = $this->fileService->upload('categories', $request->image);
+        $category->update($validatedData);
         return redirect()
             ->route('admin.categories.index')
             ->with('succes', 'Category updated succesfully');
