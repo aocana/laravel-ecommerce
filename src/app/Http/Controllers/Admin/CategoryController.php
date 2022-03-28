@@ -30,17 +30,6 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request): RedirectResponse
     {
-        /* $image = $request->hasFile('image')
-            ? $this->fileService->upload('categories', $request->image)
-            : null;
-
-        $category = Category::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'image' => $image,
-        ]); */
-
-        /* $this->baseActionStore(Category::class, 'create', 'categories'); */
         $this->createModel(Category::class, 'create', 'categories');
 
         return redirect()
