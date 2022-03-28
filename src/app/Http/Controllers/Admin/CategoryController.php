@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request): RedirectResponse
     {
-        $this->createModel(Category::class, 'create', 'categories');
+        $model = $this->createModel(Category::class, 'create', 'categories');
 
         return redirect()
             ->route('admin.categories.index')
@@ -44,15 +44,7 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
-        $image = $request->hasFile('image')
-            ? $this->fileService->upload('categories', $request->image)
-            : null;
-
-        $category->update([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'image' => $image,
-        ]);
+        $model = $this->updateModel($category, 'update', 'categories');
 
         return redirect()
             ->route('admin.categories.index')

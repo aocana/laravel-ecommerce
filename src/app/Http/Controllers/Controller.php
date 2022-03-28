@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use App\Models\Category;
 
 class Controller extends BaseController
 {
@@ -14,15 +13,19 @@ class Controller extends BaseController
 
     public function __call($name, $arguments)
     {
-        [$class, $action, $folder] = $arguments;
+        [$model, $action, $folder] = $arguments;
         $image = request()->hasFile('image')
             ? $this->fileService->upload($folder, request()->image)
             : null;
 
-        $model = $class::$action([
+        $data = [
             'name' => request()->name,
             'slug' => request()->slug,
             'image' => $image,
-        ]);
+        ];
+
+        return $action === 'create'
+            ? $model::$action($data)
+            : $model->$action($data);
     }
 }
