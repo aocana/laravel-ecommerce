@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
-use App\Models\Category;
+use App\Services\FileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use App\Services\FileService;
 
 class CategoryController extends Controller
 {
@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request): RedirectResponse
     {
-        $model = $this->createModel(Category::class, 'create', 'categories');
+        $this->createModel(Category::class, 'create', 'categories');
 
         return redirect()
             ->route('admin.categories.index')
@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
-        $model = $this->updateModel($category, 'update', 'categories');
+        $this->updateModel($category, 'update', 'categories');
 
         return redirect()
             ->route('admin.categories.index')

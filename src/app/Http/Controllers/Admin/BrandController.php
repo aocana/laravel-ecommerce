@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use Illuminate\View\View;
+use App\Services\FileService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Brand\BrandCreateRequest;
@@ -11,6 +12,10 @@ use App\Http\Requests\Brand\BrandUpdateRequest;
 
 class BrandController extends Controller
 {
+    public function __construct(FileService $fileService)
+    {
+        $this->fileService = $fileService;
+    }
 
     public function index(): View
     {
@@ -25,7 +30,7 @@ class BrandController extends Controller
 
     public function store(BrandCreateRequest $request): RedirectResponse
     {
-        $category = Brand::create($request->validated());
+        $this->createModel(Brand::class, 'create', 'brands');
         return redirect()
             ->route('admin.brands.index')
             ->with('succes', 'Brand created succesfully');
@@ -38,7 +43,7 @@ class BrandController extends Controller
 
     public function update(BrandUpdateRequest $request, Brand $brand): RedirectResponse
     {
-        $brand->update($request->validated());
+        $this->updateModel($brand, 'update', 'brands');
         return redirect()
             ->route('admin.brands.index')
             ->with('succes', 'Brand updated succesfully');

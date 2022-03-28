@@ -22,8 +22,8 @@ class BrandUpdateRequest extends FormRequest
         $brand = request('brand');
         return [
             'name' => 'required|max:40|min:3',
-            'image' => "nullable|min:3|max:250|unique:categories,image,$brand->id",
-            'slug' => "required|min:0|max:40|unique:categories,slug,$brand->id"
+            'image' => "nullable|min:3|max:250|unique:brands,image,$brand->id",
+            'slug' => "required|min:0|max:40|unique:brands,slug,$brand->id"
         ];
     }
 }
