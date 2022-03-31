@@ -22,12 +22,12 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($categories as $category)
-                            <tr>
+                            <tr class="flex items-center justify-between">
                                 <td class="px-6  whitespace-nowrap">
                                     <div class="flex items-center">
-                                        @if( $category->image)
-                                        <div class="flex-shrink-0 h-20 w-20">
-                                            <img class="h-20 w-20 rounded-full" src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
+                                        @if($category->image)
+                                        <div class="flex-shrink-0 p-1">
+                                            <img class="h-14 w-14 rounded-full" src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
                                         </div>
                                         @endif
                                         <div class="ml-4">
@@ -36,7 +36,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
-                                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900 p-5">Edit</a>
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                     <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

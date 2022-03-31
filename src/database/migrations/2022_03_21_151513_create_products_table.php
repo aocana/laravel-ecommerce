@@ -36,6 +36,7 @@ return new class extends Migration
                 ->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

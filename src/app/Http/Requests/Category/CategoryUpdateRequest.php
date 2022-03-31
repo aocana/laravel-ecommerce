@@ -23,7 +23,7 @@ class CategoryUpdateRequest extends FormRequest
 
         return [
             'name' => 'required|max:40|min:3',
-            'image' => "nullable|min:3|max:250|unique:categories,image,$category->id",
+            'image' => "nullable|min:2|max:250|unique:categories,image,$category->id",
             'slug' => "required|min:0|max:40|unique:categories,slug,$category->id"
         ];
     }

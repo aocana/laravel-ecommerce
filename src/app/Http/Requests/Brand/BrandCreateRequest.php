@@ -25,8 +25,8 @@ class BrandCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:20',
-            'image' => 'unique:categories,image|nullable|min:3|max:250',
-            'slug' => 'unique:categories,slug|required|min:2|max:20'
+            'image' => 'nullable|mimes:png|min:2|max:250',
+            'slug' => 'required|unique:brands,slug|min:2|max:20'
         ];
     }
 }

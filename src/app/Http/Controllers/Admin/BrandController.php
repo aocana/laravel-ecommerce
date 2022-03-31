@@ -51,6 +51,8 @@ class BrandController extends Controller
 
     public function destroy(Brand $brand): RedirectResponse
     {
+        if ($brand->image) $this->fileService->delete($brand->image);
+
         $brand->delete();
         return redirect()
             ->route('admin.brands.index')

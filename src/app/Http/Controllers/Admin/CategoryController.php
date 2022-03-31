@@ -53,6 +53,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category): RedirectResponse
     {
+        if ($category->image) $this->fileService->delete($category->image);
         $category->delete();
         return redirect()
             ->route('admin.categories.index')

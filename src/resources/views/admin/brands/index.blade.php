@@ -22,12 +22,12 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($brands as $brand)
-                            <tr>
+                            <tr class="flex items-center justify-between">
                                 <td class="px-6 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10">
-                                            @if( $brand->file_path)
-                                            <img class="h-10 w-10 rounded-full" src="{{ $brand->file_path }}" alt="{{ $brand->name }}">
+                                        <div class="flex-shrink-0 p-1">
+                                            @if($brand->image)
+                                            <img class="h-14 w-14 rounded-full" src="{{ asset('storage/' . $brand->image) }}" alt="{{ $brand->name }}">
                                             @endif
                                         </div>
                                         <div class="ml-4">
@@ -36,7 +36,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
-                                    <a href="{{ route('admin.brands.edit', $brand) }}" class="text-indigo-600 hover:text-indigo-900 p-5">Edit</a>
+                                    <a href="{{ route('admin.brands.edit', $brand) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                     <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
