@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('name', 100);
+            $table->string('slug', 100)->unique();
             $table->longText('description')->nullable();
             $table->string('stripe_id')->unique();
             $table->float('price');
-            $table->string('file_path');
+            $table->string('image');
             $table->integer('stock');
             $table->integer('sku');
             $table->boolean('is_visible');

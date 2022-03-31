@@ -14,7 +14,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'slug',
-        'file_path',
+        'image',
         'description',
         'price',
         'stock',
@@ -30,12 +30,12 @@ class Product extends Model
     }
 
     /* Meilisearch conf */
-    public function searchableAs()
+    public function searchableAs(): string
     {
         return 'products';
     }
 
-    public function sortableAttributes()
+    public function sortableAttributes(): array
     {
         return ['price'];
     }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\View\View;
+use App\Services\FileService;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
-use App\Services\FileService;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
@@ -34,7 +34,7 @@ class CategoryController extends Controller
 
         return redirect()
             ->route('admin.categories.index')
-            ->with('succes', 'Category created succesfully');
+            ->with('success', 'Category created succesfully');
     }
 
     public function edit(Category $category): View
@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
         return redirect()
             ->route('admin.categories.index')
-            ->with('succes', 'Category updated succesfully');
+            ->with('success', 'Category updated succesfully');
     }
 
     public function destroy(Category $category): RedirectResponse
@@ -57,6 +57,6 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()
             ->route('admin.categories.index')
-            ->with('succes', 'Category deleted succesfully');
+            ->with('success', 'Category deleted succesfully');
     }
 }
