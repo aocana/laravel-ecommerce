@@ -32,39 +32,20 @@ Create .env file and edit
 cp .env.example .env
 ```
 
-Run composer install:
-
-```
-composer install
-```
-
 ### 🚀 Start app
 
-Run sail:
+Execute script.sh:
 
 ```
-vendor/bin/sail up -d
+./script.sh
 ```
 
-Run:
-
-```
-vendor/bin/sail artisan key:generate
-vendor/bin/sail npm i && dev
-```
-
-**App will be available on `localhost:80`**
+**App will be available on `localhost:8089`**
 
 ### 🛑 Stop app
 
-Stop sail:
+Stop docker:
 
 ```
-vendor/bin/sail down
-```
-
-### Recommended alias
-
-```
-alias sail="[ -f sail ] && bash sail || bash vendor/bin/sail"
+docker-compose down
 ```

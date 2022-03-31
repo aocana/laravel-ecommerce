@@ -20,12 +20,12 @@ Route::get('/', function () {
 })->name('home');
 
 //shop
-/* Route::get('/shop', 'ShopController::class@index')->name('shop.index');
-Route::get('/shop/search', 'ShopController::class@search')->name('shop.search'); */
+Route::get('/shop', [ShopController::class,'index'])->name('shop.index');
+Route::get('/shop/search', [ShopController::class,'search'])->name('shop.search');
 
 //cart
-/* Route::get('/cart', 'CartController::class@index')->name('cart.index');
-Route::get('/cart/add/{product}', 'CartController::class@addToCart')->name('cart.add'); */
+Route::get('/cart', [CartController::class,'index'])->name('cart.index');
+Route::get('/cart/add/{product}', [CartController::class,'addToCart'])->name('cart.add');
 
 
 Route::get('/dashboard', function () {

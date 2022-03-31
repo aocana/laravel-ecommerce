@@ -10,7 +10,7 @@ services:
       dockerfile: nginx.root.dockerfile
     container_name: nginx
     ports:
-      - 80:80
+      - 8089:80
     volumes:
       - ./src:/var/www/html:delegated
     depends_on:
@@ -24,7 +24,7 @@ services:
     image: postgres:14-alpine3.15
     container_name: pgsql
     ports:
-      - 5432:5432
+      - 5439:5432
     environment:
       POSTGRES_DB: ecommerce
       POSTGRES_USER: ocana
