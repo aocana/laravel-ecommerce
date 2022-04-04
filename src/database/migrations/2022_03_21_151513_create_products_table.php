@@ -22,18 +22,18 @@ return new class extends Migration
             $table->float('price');
             $table->string('image');
             $table->integer('stock');
-            $table->integer('sku');
+            $table->integer('sku')->nullable();
             $table->boolean('is_visible');
 
             $table->foreignId('category_id')
+                ->nullable()
                 ->constrained('categories')
-                ->nullOnDelete()
-                ->nullable();
+                ->nullOnDelete();
 
             $table->foreignId('brand_id')
+                ->nullable()
                 ->constrained('brands')
-                ->nullOnDelete()
-                ->nullable();
+                ->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

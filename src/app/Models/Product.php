@@ -16,6 +16,7 @@ class Product extends Model
         'slug',
         'image',
         'description',
+        'stripe_id',
         'price',
         'stock',
         'sku',

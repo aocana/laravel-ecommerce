@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Product\ProductCreateRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
-use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
 {
@@ -34,7 +33,10 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['image'] = $this->fileService->upload('products', $request->image);
-        dd($validatedData);
+        $validatedData['stripe_id'] = "prueba12";
+        /* dd($validatedData); */
+
+        Product::create($validatedData);
 
         return redirect()
             ->route('admin.products.index')
