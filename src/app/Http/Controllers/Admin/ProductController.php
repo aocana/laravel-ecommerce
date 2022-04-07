@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use Illuminate\View\View;
 use App\Services\FileService;
+use App\Services\StripeService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Product\ProductCreateRequest;
@@ -12,9 +13,13 @@ use App\Http\Requests\Product\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
-    public function __construct(FileService $fileService)
+    private $fileService;
+    private $stripe;
+
+    public function __construct(FileService $fileService, StripeService $stripe)
     {
         $this->fileService = $fileService;
+        $this->stripe = $stripe;
     }
 
     public function index(): View
@@ -33,8 +38,10 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['image'] = $this->fileService->upload('products', $request->image);
-        $validatedData['stripe_id'] = "prueba12";
+
+        $this->stripe->createProduct($validatedData);
         /* dd($validatedData); */
+
 
         Product::create($validatedData);
 
