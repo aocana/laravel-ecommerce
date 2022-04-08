@@ -14,12 +14,12 @@ use App\Http\Requests\Product\ProductUpdateRequest;
 class ProductController extends Controller
 {
     private $fileService;
-    private $stripe;
+    private $stripeService;
 
-    public function __construct(FileService $fileService, StripeService $stripe)
+    public function __construct(FileService $fileService, StripeService $stripeService)
     {
         $this->fileService = $fileService;
-        $this->stripe = $stripe;
+        $this->stripeService = $stripeService;
     }
 
     public function index(): View
@@ -39,9 +39,11 @@ class ProductController extends Controller
         $validatedData = $request->validated();
         $validatedData['image'] = $this->fileService->upload('products', $request->image);
 
-        $this->stripe->createProduct($validatedData);
-        /* dd($validatedData); */
-
+        dd($validatedData);
+        $stripeProduct = $this->stripeService->createProduct($validatedData);
+        if ($stripeProduct) {
+            $validatedData['stripe_id'] = $stripeProduct['id'];
+        }
 
         Product::create($validatedData);
 

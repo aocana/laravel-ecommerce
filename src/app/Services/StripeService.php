@@ -18,12 +18,19 @@ class StripeService
 
     public function createProduct($data)
     {
-        $product = $this->stripe->products->create([
+        $stripeProduct = $this->stripe->products->create([
             'name' => $data['name'],
             'active' => (bool) $data['is_visible'],
         ]);
-        dd($product);
+        /* dd($product); */
 
-        return $product;
+        $stripeProductPrice = $this->stripe->prices->create([
+            'unit_amount' => $data['price'],
+            'product' => (float) $stripeProduct['id'],
+            'currency' => env('CASHIER_CURRENCY'),
+            'active' => true,
+        ]);
+
+        dd($stripeProductPrice);
     }
 }
