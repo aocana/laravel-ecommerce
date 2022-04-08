@@ -4,7 +4,7 @@ namespace App\Services\Stripe;
 
 use Stripe\StripeClient;
 
-class ProductsService
+class ProductsStripe
 {
     function __construct()
     {

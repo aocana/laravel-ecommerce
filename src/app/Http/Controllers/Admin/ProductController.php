@@ -7,7 +7,7 @@ use Illuminate\View\View;
 use App\Services\FileService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Stripe\ProductsService;
+use App\Services\Stripe\ProductsStripe;
 use App\Http\Requests\Product\ProductCreateRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
 
@@ -16,7 +16,7 @@ class ProductController extends Controller
     private $fileService;
     private $stripeService;
 
-    public function __construct(FileService $fileService, ProductsService $stripeService)
+    public function __construct(FileService $fileService, ProductsStripe $stripeService)
     {
         $this->fileService = $fileService;
         $this->stripeService = $stripeService;
