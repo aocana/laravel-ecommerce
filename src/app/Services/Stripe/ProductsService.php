@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Stripe;
 
 use Stripe\StripeClient;
 
-class StripeService
+class ProductsService
 {
     function __construct()
     {
