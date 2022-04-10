@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('slug', 100)->unique();
             $table->longText('description')->nullable();
-            $table->string('stripe_id')->unique();
+            $table->string('stripe_product_id')->unique();
+            $table->string('stripe_price_id')->unique();
             $table->float('price');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('stock');
             $table->integer('sku')->nullable();
             $table->boolean('is_visible');

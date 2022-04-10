@@ -2,9 +2,13 @@
     <div class="py-12 sm:px-5 md:px-10 l:px-24 xl:px-40">
         <p>Cart</p>
         @forelse ($products as $product)
-            <p>{{ $product->name }}</p>
+        <p>{{ $product->name }}</p>
         @empty
-            <p>You don't added products</p>
+        <p>You don't added products</p>
         @endforelse
+
+        @if ($checkout)
+        <p>{{ $checkout->button() }}</p>
+        @endif
     </div>
 </x-app-layout>

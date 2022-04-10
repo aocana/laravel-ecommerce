@@ -9,14 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, Searchable, Billable;
+    use HasFactory, Searchable;
 
     protected $fillable = [
         'name',
         'slug',
         'image',
         'description',
-        'stripe_id',
+        'stripe_product_id',
+        'stripe_price_id',
         'price',
         'stock',
         'sku',

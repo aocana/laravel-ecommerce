@@ -16,21 +16,20 @@ class ProductsStripe
         return $this->stripe->products->all();
     }
 
-    public function createProduct($data)
+    public function createProduct($data): array
     {
         $stripeProduct = $this->stripe->products->create([
             'name' => $data['name'],
             'active' => (bool) $data['is_visible'],
         ]);
-        /* dd($product); */
 
-        $stripeProductPrice = $this->stripe->prices->create([
+        $stripePrice = $this->stripe->prices->create([
             'unit_amount' => $data['price'],
-            'product' => (float) $stripeProduct['id'],
+            'product' => $stripeProduct['id'],
             'currency' => env('CASHIER_CURRENCY'),
             'active' => true,
         ]);
 
-        dd($stripeProductPrice);
+        return ['product_id' => $stripeProduct['id'], 'price_id' => $stripePrice['id']];
     }
 }

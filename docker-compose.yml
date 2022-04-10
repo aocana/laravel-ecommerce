@@ -32,7 +32,7 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: pgsql
     volumes:
-      - ./pgsql:/var/lib/postgresql/data 
+      - ./pgsql:/var/lib/postgresql/data
     networks:
       - laravel
 
