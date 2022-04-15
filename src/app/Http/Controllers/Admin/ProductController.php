@@ -36,6 +36,7 @@ class ProductController extends Controller
 
     public function store(ProductCreateRequest $request): RedirectResponse
     {
+        //dd($request);
         $validatedData = $request->validated();
         $validatedData['price'] = (float) $validatedData['price'];
         $validatedData['image'] = $this->fileService->upload('products', $request->image);
@@ -62,7 +63,7 @@ class ProductController extends Controller
 
     public function edit(Product $product): View
     {
-        return view('admin.products.edit', $product);
+        return view('admin.products.edit', compact('product'));
     }
 
     public function update(ProductUpdateRequest $request, Product $product)

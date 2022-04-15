@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Laravel\Cashier\Billable;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,6 +49,7 @@ class Product extends Model
     public function toSearchableArray(): array
     {
         return [
+            'id'   => $this->getKey(),
             'name' => $this->name,
             'price' => $this->price,
         ];

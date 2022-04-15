@@ -24,7 +24,7 @@ class ProductsStripe
         ]);
 
         $stripePrice = $this->stripe->prices->create([
-            'unit_amount' => $data['price'],
+            'unit_amount' => $data['price'] * 100,
             'product' => $stripeProduct['id'],
             'currency' => env('CASHIER_CURRENCY'),
             'active' => true,
