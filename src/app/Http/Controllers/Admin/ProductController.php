@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\View\View;
 use App\Services\FileService;
 use App\Http\Controllers\Controller;
@@ -31,12 +33,13 @@ class ProductController extends Controller
 
     public function create(): View
     {
-        return view('admin.products.create');
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('admin.products.create', compact('brands', 'categories'));
     }
 
     public function store(ProductCreateRequest $request): RedirectResponse
     {
-        //dd($request);
         $validatedData = $request->validated();
         $validatedData['price'] = (float) $validatedData['price'];
         $validatedData['image'] = $this->fileService->upload('products', $request->image);
@@ -48,7 +51,6 @@ class ProductController extends Controller
             $validatedData['stripe_price_id'] = $stripeProduct['price_id'];
         }
 
-        /* dd($validatedData); */
         Product::create($validatedData);
 
         return redirect()
@@ -63,12 +65,20 @@ class ProductController extends Controller
 
     public function edit(Product $product): View
     {
-        return view('admin.products.edit', compact('product'));
+        $brands = Brand::all();
+        $categories = Category::all();
+
+        return view('admin.products.edit', compact('product', 'brands', 'categories'));
     }
 
-    public function update(ProductUpdateRequest $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        //
+        dd($product);
+
+
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product updated succesfully');
     }
 
     public function destroy(Product $product): RedirectResponse

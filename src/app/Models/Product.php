@@ -31,6 +31,11 @@ class Product extends Model
     }
 
     /* Meilisearch conf */
+    public function getScoutKey(): int
+    {
+        return $this->id;
+    }
+
     public function searchableAs(): string
     {
         return 'products';
@@ -49,7 +54,7 @@ class Product extends Model
     public function toSearchableArray(): array
     {
         return [
-            'id'   => $this->getKey(),
+            'id'   => $this->id,
             'name' => $this->name,
             'price' => $this->price,
         ];
@@ -57,8 +62,8 @@ class Product extends Model
 
     static function searchFilter($query, $options)
     {
-        $searchResults =  self::search($query, function ($meilisearch, $query) use ($options) {
-            $meilisearch->search($query, $options);
+        $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
+            return $meilisearch->search($query, $options);
         })
             ->paginate(9);
 

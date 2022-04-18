@@ -64,6 +64,8 @@ services:
       - "${FORWARD_MEILISEARCH_PORT:-7700}:7700"
     volumes:
       - ./meilisearch:/data.ms
+    networks:
+      - laravel
 
   composer:
     image: composer:2

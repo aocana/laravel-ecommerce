@@ -19,7 +19,7 @@ class ShopController extends Controller
     public function search(Request $request): View
     {
         if (!$request->sort) $options['sort'] = ['name:asc'];
-        /* if (!$request->input('query')) $options['sort'] = ['name:asc']; */
+        if (!$request->input('query')) $options['sort'] = ['name:asc'];
 
         return view('shop.index', [
             'products' => Product::searchFilter($request->input('query'), $options)

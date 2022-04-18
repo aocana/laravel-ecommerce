@@ -30,9 +30,8 @@ class ProductCreateRequest extends FormRequest
 
         return [
             'name' => 'required|min:2|max:100',
-            'slug' => 'required|unique:products,slug|min:2|max:100',
+            'slug' => 'required|unique:products,slug|min:2|max:100|string',
             'image' => 'nullable|mimes:png|min:2|max:250',
-            'stripe_id' => 'nullable|unique:products,stripe_id|min:2',
             'price' => 'required|numeric|min:1',
             'stock' => 'required|integer|min:1',
             'sku' => 'nullable|unique:products,sku',

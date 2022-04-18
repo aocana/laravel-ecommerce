@@ -56,7 +56,13 @@
                 <label class="text-gray-700 dark:text-gray-200" for="price">Category</label>
                 <select name="category_id" type="number" min="1" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
                     <option value=""></option>
-                    <option value="Name">Name</option>
+                    @foreach($categories as $category)
+                    @if($category->id === $product->category_id)
+                    <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                    @else
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endif
+                    @endforeach
                 </select>
                 @error('category_id')
                 <p class="text-red-500">{{ $message }}</p>
@@ -67,7 +73,13 @@
                 <label class="text-gray-700 dark:text-gray-200" for="price">Brand</label>
                 <select name="brand_id" type="number" min="1" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
                     <option value=""></option>
-                    <option value="Name">Name</option>
+                    @foreach($brands as $brand)
+                    @if($brand->id === $product->brand_id)
+                    <option value="{{$brand->id}}" selected>{{$brand->name}}</option>
+                    @else
+                    <option value="{{$brand->id}}">{{$brand->name}}</option>
+                    @endif
+                    @endforeach
                 </select>
                 @error('brand_id')
                 <p class="text-red-500">{{ $message }}</p>
@@ -76,8 +88,11 @@
             </div>
 
             <div>
-                <input class="rounded-full" type="checkbox" value="{{ $product->is_visible }}" name="is_visible" checked></input>
                 <label for="is_visible">Visible</label>
+                <select name="is_visible">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
                 @error('is_visible')
                 <p class="text-red-500">{{ $message }}</p>
                 @enderror

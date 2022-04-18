@@ -13,8 +13,7 @@ class CartController extends Controller
     public function index(Request $request): View
     {
         $products = collect(json_decode(Cookie::get('cart')));
-        /* dd(count($products)); */
-
+        /*
         if (count($products) == 0) {
             $checkout = null;
         } else {
@@ -23,11 +22,11 @@ class CartController extends Controller
                 'cancel_url' => route('shop.index'),
             ]);
         }
-
+*/
 
         /* dd($checkout); */
 
-        return view('cart.index', compact('products', 'checkout'));
+        return view('cart.index', compact('products'));
     }
 
     public function addToCart(Product $product)

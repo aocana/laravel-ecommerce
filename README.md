@@ -8,7 +8,6 @@ Laravel e-commerce project
 
 - [Laravel](https://laravel.com/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [PEST](https://pestphp.com/)
 
 # Getting Started
 
