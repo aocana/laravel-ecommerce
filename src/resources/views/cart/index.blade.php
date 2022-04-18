@@ -11,17 +11,19 @@
                     @endif
                     <div>
                         <p>{{ $product->name }}</p>
-                        <p>{{ $product->price }}€</p>
+                        <p>{{ $product->price }} €</p>
                     </div>
                 </div>
                 <input type="text" name="price" hidden value="{{$product->stripe_price_id}}">
-                <input type="number" name="quantity" min="1" max="10" default="1">
+                <input type="number" name="quantity" min="1" max="10" value="1">
             </div>
             <hr>
             @empty
             <p>You don't added products</p>
             @endforelse
-            <input type="submit" value="Buy">
+            <div class="flex justify-end mt-6">
+                <input type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 cursor-pointer" value="Checkout">
+            </div>
         </form>
     </div>
 </x-app-layout>
