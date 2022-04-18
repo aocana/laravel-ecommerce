@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
-
 
 /*
 |---------------
@@ -27,6 +27,9 @@ Route::get('/shop/search', [ShopController::class, 'search'])->name('shop.search
 Route::get('/cart', [CartController::class, 'index'])->middleware(['auth'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'checkout'])->middleware(['auth'])->name('cart.checkout');
 Route::get('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+
+//stripe webhook
+Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
 
 
 Route::get('/dashboard', function () {
