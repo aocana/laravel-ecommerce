@@ -21,18 +21,6 @@ class CartController extends Controller
     public function index(Request $request): View
     {
         $products = collect(json_decode(Cookie::get('cart')));
-        /*
-        if (count($products) == 0) {
-            $checkout = null;
-        } else {
-            $checkout = $request->user()->checkout($products->pluck('stripe_id')->toArray(), [
-                'success_url' => route('shop.index'),
-                'cancel_url' => route('shop.index'),
-            ]);
-        }
-*/
-
-        /* dd($checkout); */
 
         return view('cart.index', compact('products'));
     }
