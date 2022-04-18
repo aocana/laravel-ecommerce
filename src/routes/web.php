@@ -25,6 +25,7 @@ Route::get('/shop/search', [ShopController::class, 'search'])->name('shop.search
 
 //cart
 Route::get('/cart', [CartController::class, 'index'])->middleware(['auth'])->name('cart.index');
+Route::post('/cart', [CartController::class, 'checkout'])->middleware(['auth'])->name('cart.checkout');
 Route::get('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 
 

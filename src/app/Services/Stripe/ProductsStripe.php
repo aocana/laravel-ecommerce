@@ -32,4 +32,12 @@ class ProductsStripe
 
         return ['product_id' => $stripeProduct['id'], 'price_id' => $stripePrice['id']];
     }
+
+    public function paymentLink($products): string
+    {
+        $stripe = $this->stripe->paymentLinks->create([
+            'line_items' => $products
+        ]);
+        return $stripe->url;
+    }
 }

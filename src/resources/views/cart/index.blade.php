@@ -2,7 +2,8 @@
     <div class="py-12 sm:px-5 md:px-10 l:px-24 xl:px-40">
         <p class="mb-5 text-2xl">Cart</p>
         <hr>
-        <form action="" method="post">
+        <form action="{{route('cart.checkout')}}" method="post">
+            @csrf
             @forelse ($products as $product)
             <div class="flex justify-between my-10 px-20">
                 <div class="flex">
@@ -14,8 +15,8 @@
                         <p>{{ $product->price }} €</p>
                     </div>
                 </div>
-                <input type="text" name="price" hidden value="{{$product->stripe_price_id}}">
-                <input type="number" name="quantity" min="1" max="10" value="1">
+                <input type="text" name="price[]" hidden value="{{$product->stripe_price_id}}">
+                <input type="number" name="quantity[]" min="1" max="10" value="1">
             </div>
             <hr>
             @empty
