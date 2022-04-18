@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Services\Stripe\ProductsStripe;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -25,7 +26,7 @@ class CartController extends Controller
         return view('cart.index', compact('products'));
     }
 
-    public function addToCart(Product $product)
+    public function addToCart(Product $product): RedirectResponse
     {
         $collection = collect(json_decode(Cookie::get('cart')));
 
@@ -38,7 +39,7 @@ class CartController extends Controller
         return redirect()->back()->with('message', 'Product added');
     }
 
-    public function checkout(Request $request)
+    public function checkout(Request $request): RedirectResponse
     {
         $products = [];
         for ($i = 0; $i < count($request->price); $i++) {
