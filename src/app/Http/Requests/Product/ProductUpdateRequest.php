@@ -36,7 +36,7 @@ class ProductUpdateRequest extends FormRequest
             'image' => 'nullable|mimes:png|min:2|max:250',
             'price' => 'required|numeric|min:1',
             'stock' => 'required|integer|min:1',
-            'sku' => "nullable|unique:products,sku,$product->sku",
+            'sku' => ['nullable', 'min:2', 'string', Rule::unique('products', 'sku')->ignore($product->sku)],
             'is_visible' => 'required|boolean',
             'brand_id' => "nullable|in:$brands",
             'category_id' => "nullable|in:$categories",
