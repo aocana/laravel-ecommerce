@@ -4,6 +4,7 @@ namespace App\Http\Requests\Product;
 
 use App\Models\Brand;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductUpdateRequest extends FormRequest
@@ -31,7 +32,7 @@ class ProductUpdateRequest extends FormRequest
 
         return [
             'name' => 'required|min:2|max:100',
-            'slug' => "required|unique:products,slug,$product->slug|min:2|max:100|string",
+            'slug' => ['required', 'min:2', 'max:100', 'string', Rule::unique('products', 'slug')->ignore($product->id)],
             'image' => 'nullable|mimes:png|min:2|max:250',
             'price' => 'required|numeric|min:1',
             'stock' => 'required|integer|min:1',

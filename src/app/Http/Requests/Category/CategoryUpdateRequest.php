@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Category;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryUpdateRequest extends FormRequest
@@ -24,7 +25,7 @@ class CategoryUpdateRequest extends FormRequest
         return [
             'name' => 'required|max:40|min:3',
             'image' => "nullable|min:2|max:250|unique:categories,image,$category->id",
-            'slug' => "required|min:0|max:40|unique:categories,slug,$category->id"
+            'slug' => ['required', 'min:2', 'max:20', 'string', Rule::unique('categories', 'slug')->ignore($category->id)],
         ];
     }
 }

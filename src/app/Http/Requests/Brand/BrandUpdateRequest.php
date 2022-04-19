@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Brand;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BrandUpdateRequest extends FormRequest
@@ -23,7 +24,7 @@ class BrandUpdateRequest extends FormRequest
         return [
             'name' => 'required|min:2|max:20',
             'image' => "nullable|min:2|max:250|unique:brands,image,$brand->id",
-            'slug' => "required|min:2|max:20|unique:brands,slug,$brand->id"
+            'slug' => ['required', 'min:2', 'max:20', 'string', Rule::unique('brands', 'slug')->ignore($brand->id)],
         ];
     }
 }
