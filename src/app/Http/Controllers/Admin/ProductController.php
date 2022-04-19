@@ -73,8 +73,8 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        dd($product);
-
+        $product->update($request->validated());
+        //edit stripe product and price
 
         return redirect()
             ->route('admin.products.index')

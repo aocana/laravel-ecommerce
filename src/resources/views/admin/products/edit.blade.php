@@ -90,8 +90,13 @@
             <div>
                 <label for="is_visible">Visible</label>
                 <select name="is_visible">
-                    <option value="1">Yes</option>
+                    @if($product->is_visible)
+                    <option value="1" selected>Yes</option>
                     <option value="0">No</option>
+                    @else
+                    <option value="1">Yes</option>
+                    <option value="0" selected>No</option>
+                    @endif
                 </select>
                 @error('is_visible')
                 <p class="text-red-500">{{ $message }}</p>
@@ -100,7 +105,7 @@
         </div>
         <div class="mt-3">
             <label class="text-gray-700 dark:text-gray-200" for="description">Description</label>
-            <textarea id="description" name="description" value="{{$product->description}}" rows="3" cols="30" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" placeholder="Description..."></textarea>
+            <textarea name="description" rows="3" cols="30" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" placeholder="Description...">{{$product->description}}</textarea>
             @error('description')
             <p class="text-red-500">{{ $message }}</p>
             @enderror
