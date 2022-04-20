@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use App\Services\Stripe\CustomersStripe;
 
 class RegisteredUserController extends Controller
 {
+
+    private $stripeService;
+
+    public function __construct(CustomersStripe $stripeService)
+    {
+        $this->stripeService = $stripeService;
+    }
+
     /**
      * Display the registration view.
      *
@@ -43,6 +52,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'stripe_id' => $this->stripeService->createCustomer($request->name, $request->email),
         ]);
 
         event(new Registered($user));

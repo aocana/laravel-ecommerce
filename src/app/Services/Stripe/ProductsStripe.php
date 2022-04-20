@@ -41,15 +41,6 @@ class ProductsStripe
         );
 
         return $this->updateProductPrice($product->stripe_price_id, $product->stripe_product_id, $data);
-
-
-        // si el precio cambia se actualiza el anterior a no visible
-        /* $this->stripe->prices->update(
-            $product->stripe_price_id,
-            [
-                'active' => (bool) $data['is_visible'],
-            ]
-        ); */
     }
 
 
@@ -89,6 +80,7 @@ class ProductsStripe
     public function paymentLink($products): string
     {
         return $this->stripe->checkout->sessions->create([
+            'customer' => auth()->user()->stripe_id,
             'line_items' => $products,
             'shipping_address_collection' => [
                 'allowed_countries' => ['ES']
