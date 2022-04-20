@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Services\Stripe\ProductsStripe;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
+use App\Services\Stripe\ProductsStripe;
 
 class CartController extends Controller
 {
@@ -34,9 +34,19 @@ class CartController extends Controller
             $collection->push($product);
         }
 
-        Cookie::queue('cart', $collection->toJson(), 500);
+        Cookie::queue('cart', $collection->toJson(), 45000);
 
         return redirect()->back()->with('message', 'Product added');
+    }
+
+    static function updateCart(Product $product): void
+    {
+        $collection = collect(json_decode(Cookie::get('cart')));
+
+        $key = $collection->where('id', '==', $product->id)->keys();
+        $collection[$key[0]] = $product->getAttributes();
+
+        Cookie::queue('cart', $collection->toJson(), 45000);
     }
 
     public function checkout(Request $request): RedirectResponse

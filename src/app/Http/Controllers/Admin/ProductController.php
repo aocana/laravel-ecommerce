@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\CartController;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
@@ -73,8 +74,15 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        $product->update($request->validated());
-        //edit stripe product and price
+        $validatedData = $request->validated();
+        $validatedData['price'] = (float) $validatedData['price'];
+        $validatedData['image'] = $this->fileService->upload('products', $request->image);
+        $validatedData['stripe_price_id'] = $this->stripeService->updateProduct($product, $validatedData);
+
+        $product->update($validatedData);
+
+        CartController::updateCart($product);
+
 
         return redirect()
             ->route('admin.products.index')
