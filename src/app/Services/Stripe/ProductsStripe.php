@@ -88,11 +88,14 @@ class ProductsStripe
 
     public function paymentLink($products): string
     {
-        return $this->stripe->paymentLinks->create([
+        return $this->stripe->checkout->sessions->create([
             'line_items' => $products,
             'shipping_address_collection' => [
                 'allowed_countries' => ['ES']
             ],
+            'mode' => 'payment',
+            'success_url' => env('APP_URL') . '/shop',
+            'cancel_url' => env('APP_URL') . '/cart',
         ])->url;
     }
 }
