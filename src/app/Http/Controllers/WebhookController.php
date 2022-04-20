@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
@@ -11,11 +12,10 @@ class WebhookController extends CashierWebhookController
 {
     public function handleCheckoutSessionCompleted($payload)
     {
-        Log::info($payload);
         Cookie::forget('cart');
 
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
-            $order = $user->orders()->create();
+            $order = Order::create(['user_id' => $user->id]);
         }
     }
 }
