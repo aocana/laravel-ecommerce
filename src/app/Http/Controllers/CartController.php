@@ -23,7 +23,6 @@ class CartController extends Controller
     public function index(Request $request): View
     {
         $products = collect(json_decode(Cookie::get('cart')));
-        //dd($products);
         return view('cart.index', compact('products'));
     }
 
@@ -52,19 +51,14 @@ class CartController extends Controller
 
     public function checkout(Request $request): RedirectResponse
     {
-        //dd($request);
         $products = [];
         for ($i = 0; $i < count($request->price); $i++) {
             array_push($products, [
                 'price' => $request->price[$i],
                 'quantity' => $request->quantity[$i],
-                /* 'metadata' => [
-                    'id' => $request->id[$i],
-                ], */
             ]);
         }
-        //dd($products);
-        $url = $this->stripeService->paymentLink($products);
-        return redirect($url);
+
+        return redirect($this->stripeService->paymentLink($products));
     }
 }

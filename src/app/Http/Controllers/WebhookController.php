@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use Illuminate\Http\Request;
-use App\Models\Order_Product;
 use App\Models\Product;
 use App\Services\Prueba;
+use Illuminate\Http\Request;
+use App\Models\Order_Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
 use App\Services\Stripe\CheckoutStripe;
@@ -30,12 +31,18 @@ class WebhookController extends CashierWebhookController
 
 
             foreach ($products  as $item) {
-                $productId = Product::where('stripe_product_id', '=', $item->price->product)->get('id')[0]->id;
+                $productId = Product::where('stripe_product_id', $item->price->product)->get('id')[0]->id;
+
                 Order_Product::create([
                     'order_id' => $order->id,
                     'product_id' => $productId,
                     'quantity' => $item->quantity,
                 ]);
+
+                //decrement stock
+                DB::table('products')
+                    ->where('id', $productId)
+                    ->decrement('stock', $item->quantity);
             }
         }
     }
