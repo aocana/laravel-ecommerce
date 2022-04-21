@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -25,17 +26,30 @@ class Product extends Model
         'category_id'
     ];
 
+
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    /* Meilisearch conf */
-    public function getScoutKey(): int
+    /* Relations */
+    public function category()
     {
-        return $this->id;
+        $this->belongsTo(Category::class);
     }
 
+    public function brand()
+    {
+        $this->belongsTo(Brand::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order_Product::class);
+    }
+
+
+    /* Scout */
     public function searchableAs(): string
     {
         return 'products';
@@ -54,9 +68,10 @@ class Product extends Model
     public function toSearchableArray(): array
     {
         return [
-            'id'   => $this->id,
             'name' => $this->name,
             'price' => $this->price,
+            'category' => $this->category_id->name,
+            'brand' => $this->brand_id->name,
         ];
     }
 

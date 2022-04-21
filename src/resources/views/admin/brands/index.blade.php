@@ -10,46 +10,34 @@
     <div class="flex flex-col w-6/12">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <form action="{{route('admin.brands.search')}}" method="get">
+                    <input type="search" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Search brand..." maxlength="30" name="query">
+                </form>
+                @if(count($brands)>0)
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Edit</span>
-                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse($brands as $brand)
+                            @foreach($brands as $brand)
                             <tr class="flex items-center justify-between">
                                 <td class="px-6 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 p-1">
-                                            @if($brand->image)
-                                            <img class="h-14 w-14 rounded-full" src="{{ asset('storage/' . $brand->image) }}" alt="{{ $brand->name }}">
-                                            @endif
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">{{ $brand->name }}</div>
-                                        </div>
-                                    </div>
+                                    {{ $brand->name }}
                                 </td>
                                 <td class="px-6 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
                                     <a href="{{ route('admin.brands.edit', $brand) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                    </form>
                                 </td>
                             </tr>
-                            @empty
-                            <p>No brands created</p>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
+                @else
+                <p>No results found...</p>
+                @endif
                 {{ $brands->links() }}
             </div>
         </div>

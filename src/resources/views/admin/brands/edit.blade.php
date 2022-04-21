@@ -1,5 +1,16 @@
 <x-admin-layout>
-    <p class="text-2xl">Edit brand</p>
+    <div class="flex items-center justify-between">
+        <p class="text-2xl">Edit brand</p>
+        <div>
+            <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="px-4 py-2 font-medium tracking-wide text-white transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80">Delete brand</button>
+            </form>
+        </div>
+    </div>
+
+
     <form action="{{route('admin.brands.update', $brand)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

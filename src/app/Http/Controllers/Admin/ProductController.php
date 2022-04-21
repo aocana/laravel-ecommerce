@@ -16,13 +16,13 @@ use App\Http\Requests\Product\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
-    private $fileService;
-    private $stripeService;
+    private FileService $fileService;
+    private ProductsStripe $stripeService;
 
-    public function __construct(FileService $fileService, ProductsStripe $stripeService)
+    public function __construct()
     {
-        $this->fileService = $fileService;
-        $this->stripeService = $stripeService;
+        $this->fileService = new FileService();
+        $this->stripeService = new ProductsStripe();
     }
 
     public function index(): View

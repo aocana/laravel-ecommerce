@@ -2,27 +2,55 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, Searchable, SoftDeletes;
 
-    protected $fillable = ['name', 'image', 'slug'];
+    protected $fillable = ['name', 'slug'];
 
-    /**
-     * Get the route key for the model.
-     * @return string
-     */
+
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
+    /* Relations */
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /* Scout */
+    public function searchableAs(): string
+    {
+        return 'categories';
+    }
+
+    public function sortableAttributes(): array
+    {
+        return ['name'];
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'slug' => $this->brands,
+        ];
+    }
+
+    static function searchFilter($query, $options)
+    {
+        $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
+            return $meilisearch->search($query, $options);
+        })
+            ->paginate(9);
+
+        return $searchResults;
     }
 }

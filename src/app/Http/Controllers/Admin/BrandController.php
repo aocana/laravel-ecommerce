@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use Illuminate\View\View;
-use App\Services\FileService;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Brand\BrandCreateRequest;
@@ -12,11 +12,6 @@ use App\Http\Requests\Brand\BrandUpdateRequest;
 
 class BrandController extends Controller
 {
-    public function __construct(FileService $fileService)
-    {
-        $this->fileService = $fileService;
-    }
-
     public function index(): View
     {
         $brands = Brand::paginate(10);
@@ -57,5 +52,15 @@ class BrandController extends Controller
         return redirect()
             ->route('admin.brands.index')
             ->with('succes', 'Brand deleted succesfullly');
+    }
+
+    public function search(Request $request)
+    {
+        if (!$request->sort) $options['sort'] = ['name:asc'];
+        if (!$request->input('query')) $options['sort'] = ['name:asc'];
+
+        return view('admin.brands.index', [
+            'brands' => Brand::searchFilter($request->input('query'), $options)
+        ]);
     }
 }

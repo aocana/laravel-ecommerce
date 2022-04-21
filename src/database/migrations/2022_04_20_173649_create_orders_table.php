@@ -19,7 +19,7 @@ return new class extends Migration
                 ->constrained('users', 'id')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->enum('status', ['Preparing', 'Sent', 'In delivery']);
+            $table->enum('status', ['Preparing', 'Sent', 'In delivery', 'Delivered']);
             $table->timestamps();
         });
     }

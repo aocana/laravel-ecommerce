@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 
 /*
 |---------------
@@ -48,9 +49,15 @@ Route::prefix('p4dmin')->name('admin.')->group(function () {
     Route::resource('/categories', CategoryController::class)
         ->except(['show']);
     /*->middleware('auth', 'role:admin');*/
+    Route::get('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
 
     Route::resource('/brands', BrandController::class)
         ->except(['show']);
+    Route::get('/brands/search', [BrandController::class, 'search'])->name('brands.search');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.index');
+    Route::put('/orders/{order}', [OrderController::class, 'edit'])->name('orders.update');
 });
 
 

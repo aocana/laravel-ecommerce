@@ -7,41 +7,28 @@
             </svg>
         </a>
     </div>
-    <div class="flex flex-col w-6/12">
+    <div class="flex flex-col w-6/12 justify-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                <form action="{{route('admin.categories.search')}}" method="get">
+                    <input type="search" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Search category..." maxlength="30" name="query">
+                </form>
+                @if(count($categories)>0)
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Edit</span>
-                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($categories as $category)
-                            <tr class="flex items-center justify-between">
-                                <td class="px-6  whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        @if($category->image)
-                                        <div class="flex-shrink-0 p-1">
-                                            <img class="h-14 w-14 rounded-full" src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
-                                        </div>
-                                        @endif
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">{{ $category->name }}</div>
-                                        </div>
-                                    </div>
+                            <tr class="flex items-center justify-between py-5">
+                                <td class="px-6  whitespace-nowrap text-sm font-medium text-gray-900">
+                                    {{ $category->name }}
                                 </td>
                                 <td class="px-6 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
                                     <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                    </form>
                                 </td>
                             </tr>
                             @empty
@@ -50,6 +37,9 @@
                         </tbody>
                     </table>
                 </div>
+                @else
+                <p>No results found...</p>
+                @endif
                 {{ $categories->links() }}
             </div>
         </div>

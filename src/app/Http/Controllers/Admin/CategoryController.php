@@ -4,18 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\View\View;
-use App\Services\FileService;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\SearchController;
 use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
-    public function __construct(FileService $fileService)
-    {
-        $this->fileService = $fileService;
-    }
 
     public function index(): View
     {
@@ -53,10 +50,19 @@ class CategoryController extends Controller
 
     public function destroy(Category $category): RedirectResponse
     {
-        if ($category->image) $this->fileService->delete($category->image);
         $category->delete();
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Category deleted succesfully');
+    }
+
+    public function search(Request $request)
+    {
+        if (!$request->sort) $options['sort'] = ['name:asc'];
+        if (!$request->input('query')) $options['sort'] = ['name:asc'];
+
+        return view('admin.categories.index', [
+            'categories' => Category::searchFilter($request->input('query'), $options)
+        ]);
     }
 }

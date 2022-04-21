@@ -13,15 +13,11 @@ class Controller extends BaseController
 
     public function __call($name, $arguments)
     {
-        [$model, $action, $folder] = $arguments;
-        $image = request()->hasFile('image')
-            ? $this->fileService->upload($folder, request()->image)
-            : null;
+        [$model, $action] = $arguments;
 
         $data = [
             'name' => request()->name,
             'slug' => request()->slug,
-            'image' => $image,
         ];
 
         return $action === 'create'

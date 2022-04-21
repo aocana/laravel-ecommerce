@@ -1,6 +1,6 @@
 # Laravel e-commerce
 
-![Status](https://img.shields.io/badge/Status-35%25-orange)
+![Status](https://img.shields.io/badge/Status-60%25-orange)
 
 Laravel e-commerce project
 

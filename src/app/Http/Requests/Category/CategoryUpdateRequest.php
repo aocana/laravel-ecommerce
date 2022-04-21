@@ -24,7 +24,6 @@ class CategoryUpdateRequest extends FormRequest
 
         return [
             'name' => 'required|max:40|min:3',
-            'image' => "nullable|min:2|max:250|unique:categories,image,$category->id",
             'slug' => ['required', 'min:2', 'max:20', 'string', Rule::unique('categories', 'slug')->ignore($category->id)],
         ];
     }
