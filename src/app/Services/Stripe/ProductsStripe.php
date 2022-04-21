@@ -75,19 +75,4 @@ class ProductsStripe
 
         return $stripePriceId;
     }
-
-
-    public function paymentLink($products): string
-    {
-        return $this->stripe->checkout->sessions->create([
-            'customer' => auth()->user()->stripe_id,
-            'line_items' => $products,
-            'shipping_address_collection' => [
-                'allowed_countries' => ['ES']
-            ],
-            'mode' => 'payment',
-            'success_url' => env('APP_URL') . '/shop',
-            'cancel_url' => env('APP_URL') . '/cart',
-        ])->url;
-    }
 }

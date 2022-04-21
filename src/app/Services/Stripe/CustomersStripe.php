@@ -11,7 +11,7 @@ class CustomersStripe
         $this->stripe = new StripeClient(env('STRIPE_SECRET'));
     }
 
-    public function createCustomer($name, $email)
+    public function createCustomer(string $name, string $email)
     {
         return $this->stripe->customers->create([
             'name' => $name,

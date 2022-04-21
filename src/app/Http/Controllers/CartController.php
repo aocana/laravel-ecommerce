@@ -7,14 +7,15 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
-use App\Services\Stripe\ProductsStripe;
+use App\Services\Stripe\CheckoutStripe;
+
 
 class CartController extends Controller
 {
 
     private $stripeService;
 
-    public function __construct(ProductsStripe $stripeService)
+    public function __construct(CheckoutStripe $stripeService)
     {
         $this->stripeService = $stripeService;
     }
@@ -22,7 +23,7 @@ class CartController extends Controller
     public function index(Request $request): View
     {
         $products = collect(json_decode(Cookie::get('cart')));
-
+        //dd($products);
         return view('cart.index', compact('products'));
     }
 
@@ -51,6 +52,7 @@ class CartController extends Controller
 
     public function checkout(Request $request): RedirectResponse
     {
+        dd($request);
         $products = [];
         for ($i = 0; $i < count($request->price); $i++) {
             array_push($products, [
@@ -58,6 +60,7 @@ class CartController extends Controller
                 'quantity' => $request->quantity[$i],
             ]);
         }
+        dd($products);
         $url = $this->stripeService->paymentLink($products);
         return redirect($url);
     }

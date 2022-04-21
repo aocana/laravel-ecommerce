@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Order_Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
@@ -16,6 +17,14 @@ class WebhookController extends CashierWebhookController
 
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
             $order = Order::create(['user_id' => $user->id]);
+
+            //$payload['data']['object']['id'];
+
+            Order_Product::create([
+                'order_id' => $order->id,
+                'product_id' => 'id',
+                'quantity' => 'a',
+            ]);
         }
     }
 }
