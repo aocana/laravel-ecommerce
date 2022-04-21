@@ -52,15 +52,18 @@ class CartController extends Controller
 
     public function checkout(Request $request): RedirectResponse
     {
-        dd($request);
+        //dd($request);
         $products = [];
         for ($i = 0; $i < count($request->price); $i++) {
             array_push($products, [
                 'price' => $request->price[$i],
                 'quantity' => $request->quantity[$i],
+                /* 'metadata' => [
+                    'id' => $request->id[$i],
+                ], */
             ]);
         }
-        dd($products);
+        //dd($products);
         $url = $this->stripeService->paymentLink($products);
         return redirect($url);
     }

@@ -6,6 +6,8 @@ use Stripe\StripeClient;
 
 class CheckoutStripe
 {
+    private StripeClient $stripe;
+
     function __construct()
     {
         $this->stripe = new StripeClient(env('STRIPE_SECRET'));
@@ -27,6 +29,6 @@ class CheckoutStripe
 
     public function checkoutItems(string $id)
     {
-        return $this->stripe->checkout->sessions->allLineItems($id);
+        return $this->stripe->checkout->sessions->allLineItems($id)->data;
     }
 }

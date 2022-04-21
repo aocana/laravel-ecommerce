@@ -6,6 +6,8 @@ use Stripe\StripeClient;
 
 class ProductsStripe
 {
+    private StripeClient $stripe;
+
     function __construct()
     {
         $this->stripe = new StripeClient(env('STRIPE_SECRET'));

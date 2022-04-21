@@ -3,28 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\Order_Product;
 use Illuminate\Http\Request;
+use App\Models\Order_Product;
+use App\Models\Product;
+use App\Services\Prueba;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
+use App\Services\Stripe\CheckoutStripe;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
 
 class WebhookController extends CashierWebhookController
 {
-    public function handleCheckoutSessionCompleted($payload)
+    private CheckoutStripe $stripeService;
+
+    public function __construct()
     {
-        Cookie::forget('cart');
+        $this->stripeService = new CheckoutStripe();
+    }
 
+    public function handleCheckoutSessionCompleted($payload): void
+    {
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
-            $order = Order::create(['user_id' => $user->id]);
+            $order = Order::create(['user_id' => $user->id, 'status' => 'Preparing']);
 
-            //$payload['data']['object']['id'];
+            $products = $this->stripeService->checkoutItems($payload['data']['object']['id']);
 
-            Order_Product::create([
-                'order_id' => $order->id,
-                'product_id' => 'id',
-                'quantity' => 'a',
-            ]);
+
+            foreach ($products  as $item) {
+                $productId = Product::where('stripe_product_id', '=', $item->price->product)->get('id')[0]->id;
+                Order_Product::create([
+                    'order_id' => $order->id,
+                    'product_id' => $productId,
+                    'quantity' => $item->quantity,
+                ]);
+            }
         }
     }
 }
