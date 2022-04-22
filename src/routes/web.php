@@ -56,7 +56,8 @@ Route::prefix('p4dmin')->name('admin.')->group(function () {
     Route::get('/brands/search', [BrandController::class, 'search'])->name('brands.search');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
     Route::put('/orders/{order}', [OrderController::class, 'edit'])->name('orders.update');
 });
 

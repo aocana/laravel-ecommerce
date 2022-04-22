@@ -5,23 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Scout\Searchable;
 
 class Order_Product extends Model
 {
-    use HasFactory, Searchable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'order_product';
 
     protected $fillable = ['order_id', 'product_id', 'quantity'];
 
-    public function orders()
+    public function order()
     {
-        $this->belongsToMany(Order::class);
+        return $this->belongsTo(Order::class);
     }
 
-    public function products()
+    public function product()
     {
-        $this->belongsToMany(Order_Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

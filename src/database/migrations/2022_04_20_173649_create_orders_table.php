@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')
                 ->constrained('users', 'id')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onDelete('cascade');
             $table->enum('status', ['Preparing', 'Sent', 'In delivery', 'Delivered']);
+            $table->string('checkout_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -38,7 +38,7 @@
                                     <div class="flex items-center">
                                         @if($product->image)
                                         <div class="flex-shrink-0 p-1">
-                                            <img class="h-14 w-14 rounded-full" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                                            <img class="h-14 w-14 rounded-full" src="{{ asset('storage/' . $product->image) }}" alt="#">
                                         </div>
                                         @endif
                                         <div class="ml-4">

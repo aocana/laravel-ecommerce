@@ -35,15 +35,15 @@ class Product extends Model
     /* Relations */
     public function category()
     {
-        $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function brand()
     {
-        $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class);
     }
 
-    public function orders()
+    public function ordersProduct()
     {
         return $this->hasMany(Order_Product::class);
     }
@@ -67,12 +67,21 @@ class Product extends Model
 
     public function toSearchableArray(): array
     {
-        return [
+        $attributtes = [
+            'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
-            'category' => $this->category_id->name,
-            'brand' => $this->brand_id->name,
         ];
+
+        if ($this->category) {
+            $attributtes['category'] = $this->category->name;
+        }
+
+        if ($this->brand) {
+            $attributtes['brand'] = $this->brand->name;
+        }
+
+        return $attributtes;
     }
 
     static function searchFilter($query, $options)

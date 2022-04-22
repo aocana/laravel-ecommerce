@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse($categories as $category)
+                            @foreach($categories as $category)
                             <tr class="flex items-center justify-between py-5">
                                 <td class="px-6  whitespace-nowrap text-sm font-medium text-gray-900">
                                     {{ $category->name }}
@@ -31,14 +31,12 @@
                                     <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                 </td>
                             </tr>
-                            @empty
-                            <p>No categories created</p>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 @else
-                <p>No results found...</p>
+                <p>No results</p>
                 @endif
                 {{ $categories->links() }}
             </div>

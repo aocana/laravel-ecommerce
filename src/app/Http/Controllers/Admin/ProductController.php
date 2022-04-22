@@ -76,13 +76,14 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['price'] = (float) $validatedData['price'];
-        $validatedData['image'] = $this->fileService->upload('products', $request->image);
+
+        if ($request->has('image')) {
+            $validatedData['image'] = $this->fileService->upload('products', $request->image);
+        }
+
         $validatedData['stripe_price_id'] = $this->stripeService->updateProduct($product, $validatedData);
 
         $product->update($validatedData);
-
-        CartController::updateCart($product);
-
 
         return redirect()
             ->route('admin.products.index')
