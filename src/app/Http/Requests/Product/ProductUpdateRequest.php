@@ -34,7 +34,7 @@ class ProductUpdateRequest extends FormRequest
             'name' => 'required|min:2|max:100',
             'slug' => ['required', 'min:2', 'max:100', 'string', Rule::unique('products', 'slug')->ignore($product->id)],
             'description' => 'nullable|string',
-            'image' => 'nullable|mimes:png|min:2|max:250',
+            'image' => 'required|mimes:png',
             'price' => 'required|numeric|min:1',
             'stock' => 'required|integer|min:1',
             'sku' => ['nullable', 'min:2', 'string', Rule::unique('products', 'sku')->ignore($product->sku)],

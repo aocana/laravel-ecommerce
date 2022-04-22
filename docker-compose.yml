@@ -8,7 +8,6 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: nginx.root.dockerfile
-    container_name: nginx
     ports:
       - 8089:80
     volumes:
@@ -22,7 +21,6 @@ services:
 
   pgsql:
     image: postgres:14-alpine3.15
-    container_name: pgsql
     ports:
       - 5439:5432
     environment:
@@ -40,26 +38,23 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: php.root.dockerfile
-    container_name: php
     volumes:
       - ./src:/var/www/html:delegated
     networks:
       - laravel
 
-  redis:
-    image: redis:alpine
-    container_name: redis
-    restart: unless-stopped
-    ports:
-      - 6379:6379
-    volumes:
-      - ./redis:/data
-    networks:
-      - laravel
+  //redis:
+  //  image: redis:alpine
+  //  restart: unless-stopped
+  //  ports:
+  //    - 6379:6379
+  //  volumes:
+  //    - ./redis:/data
+  //  networks:
+  //    - laravel
 
   meilisearch:
     image: getmeili/meilisearch:latest
-    container_name: meilisearch
     ports:
       - "${FORWARD_MEILISEARCH_PORT:-7700}:7700"
     volumes:
@@ -69,7 +64,6 @@ services:
 
   composer:
     image: composer:2
-    container_name: composer
     volumes:
       - ./src:/var/www/html
     working_dir: /var/www/html
@@ -82,7 +76,6 @@ services:
 
   npm:
     image: node:13.7
-    container_name: npm
     volumes:
       - ./src:/var/www/html
     ports:
@@ -97,7 +90,6 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: php.root.dockerfile
-    container_name: artisan
     volumes:
       - ./src:/var/www/html:delegated
     depends_on:

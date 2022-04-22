@@ -18,10 +18,10 @@
                                     Id
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Status
+                                    Customer
                                 </th>
-                                <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Edit</span>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
                                 </th>
                             </tr>
                         </thead>
@@ -31,6 +31,8 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-center text-gray-900">{{ $order->id }} €</div>
                                 </td>
+
+                                <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">{{ $order->user()->email }}</td>
 
                                 <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">{{ $order->status }}</td>
 

@@ -13,8 +13,9 @@ class Order extends Model
 
     protected $fillable = ['user_id', 'status'];
 
-    public function products()
+    /* Relations */
+    public function user()
     {
-        $this->belongsToMany(Product::class);
+        $this->belongsTo(Product::class);
     }
 }
