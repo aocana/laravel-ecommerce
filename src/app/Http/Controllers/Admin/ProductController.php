@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\CartController;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\View\View;
+use MeiliSearch\Client;
 use App\Services\FileService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -18,11 +18,13 @@ class ProductController extends Controller
 {
     private FileService $fileService;
     private ProductsStripe $stripeService;
+    private Client $meilisearchClient;
 
     public function __construct()
     {
         $this->fileService = new FileService();
         $this->stripeService = new ProductsStripe();
+        $this->meilisearchClient = new Client(env('MEILISEARCH_HOST'));
     }
 
     public function index(): View
@@ -52,7 +54,12 @@ class ProductController extends Controller
             $validatedData['stripe_price_id'] = $stripeProduct['price_id'];
         }
 
-        Product::create($validatedData);
+        $product = Product::create($validatedData);
+        /* $this->meilisearchClient->index('products')->addDocuments([
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price
+        ]); */
 
         return redirect()
             ->route('admin.products.index')

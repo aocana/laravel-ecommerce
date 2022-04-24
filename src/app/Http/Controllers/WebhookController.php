@@ -22,14 +22,15 @@ class WebhookController extends CashierWebhookController
     public function handleCheckoutSessionCompleted($payload): void
     {
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
-            $id = $payload['data']['object']['id'];
-            Log::info('aqui');
-            Log::info($id);
-            Log::info((string) $id);
-            Log::info($payload['data']['object']);
-            $order = Order::create(['user_id' => $user->id, 'status' => 'Preparing'], $id);
 
-            $products = $this->stripeService->checkoutItems($id);
+            $order = Order::create([
+                'user_id' => $user->id,
+                'status' => 'Preparing',
+                'checkout_id' => $payload['data']['object']['id'],
+                'total' => $payload['data']['object']['amount_total']
+            ]);
+
+            $products = $this->stripeService->checkoutItems($payload['data']['object']['id']);
 
 
             foreach ($products  as $item) {
@@ -40,6 +41,7 @@ class WebhookController extends CashierWebhookController
                         'order_id' => $order->id,
                         'product_id' => $product->id,
                         'quantity' => $item->quantity,
+                        'price' => $item
                     ]);
 
                     //decrement stock

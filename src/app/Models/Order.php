@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory, Searchable, SoftDeletes;
 
-    protected $fillable = ['user_id', 'status', 'checkout_id'];
+    protected $fillable = ['user_id', 'status', 'checkout_id', 'total'];
 
     /* Relations */
     public function user()

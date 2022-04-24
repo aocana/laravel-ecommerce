@@ -57,7 +57,7 @@ class Product extends Model
 
     public function sortableAttributes(): array
     {
-        return ['price'];
+        return ['price', 'brand', 'category', 'name'];
     }
 
     public function shouldBeSearchable(): bool

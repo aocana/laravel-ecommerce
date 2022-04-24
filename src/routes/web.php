@@ -3,18 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
-/*
-|---------------
-| Web Routes
-|---------------
-*/
 
 Route::get('/', function () {
     return view('home.index');
@@ -23,6 +19,10 @@ Route::get('/', function () {
 //shop
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/search', [ShopController::class, 'search'])->name('shop.search');
+
+//orders
+Route::get('/orders', [OrderController::class, 'index'])->middleware(['auth'])->name('orders.index');
+Route::get('/orders/{order}', [OrderController::class, 'show'])->middleware(['auth'])->name('orders.show');
 
 //cart
 Route::get('/cart', [CartController::class, 'index'])->middleware(['auth'])->name('cart.index');
@@ -38,6 +38,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
+/*
+|---------------
+| Admin Routes
+|---------------
+*/
 Route::prefix('p4dmin')->name('admin.')->group(function () {
     Route::get('/', AdminController::class)
         ->name('index');
@@ -55,10 +60,10 @@ Route::prefix('p4dmin')->name('admin.')->group(function () {
         ->except(['show']);
     Route::get('/brands/search', [BrandController::class, 'search'])->name('brands.search');
 
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-    Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-    Route::put('/orders/{order}', [OrderController::class, 'edit'])->name('orders.update');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders/{order}/edit', [AdminOrderController::class, 'edit'])->name('orders.edit');
+    Route::put('/orders/{order}', [AdminOrderController::class, 'edit'])->name('orders.update');
 });
 
 

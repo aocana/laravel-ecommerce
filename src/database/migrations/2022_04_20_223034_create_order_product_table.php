@@ -22,6 +22,7 @@ return new class extends Migration
                 ->constrained('products', 'id')
                 ->onDelete('cascade');
             $table->integer('quantity');
+            $table->float('price');
             $table->timestamps();
             $table->softDeletes();
         });

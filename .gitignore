@@ -11,3 +11,4 @@ yarn-error.log
 /pgsql
 /redis
 /meilisearch
+package-lock.json
