@@ -710,6 +710,9 @@ select {
 .mt-28 {
   margin-top: 7rem;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .ml-6 {
   margin-left: 1.5rem;
 }
@@ -727,9 +730,6 @@ select {
 }
 .-mt-px {
   margin-top: -1px;
-}
-.mt-10 {
-  margin-top: 2.5rem;
 }
 .mt-5 {
   margin-top: 1.25rem;

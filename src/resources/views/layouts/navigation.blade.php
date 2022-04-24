@@ -21,7 +21,7 @@
                         </svg>
                     </span>
 
-                    <input type="search" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Search product..." maxlength="30" name="query">
+                    <input type="search" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Search product" maxlength="30" name="q">
                 </form>
             </div>
         </div>

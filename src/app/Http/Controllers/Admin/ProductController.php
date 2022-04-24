@@ -6,8 +6,8 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\View\View;
-use MeiliSearch\Client;
 use App\Services\FileService;
+use App\Services\MeilisearchService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Stripe\ProductsStripe;
@@ -18,13 +18,13 @@ class ProductController extends Controller
 {
     private FileService $fileService;
     private ProductsStripe $stripeService;
-    private Client $meilisearchClient;
+    private MeilisearchService $meilisearch;
 
     public function __construct()
     {
         $this->fileService = new FileService();
         $this->stripeService = new ProductsStripe();
-        $this->meilisearchClient = new Client(env('MEILISEARCH_HOST'));
+        $this->meilisearch = new MeilisearchService();
     }
 
     public function index(): View
@@ -54,11 +54,8 @@ class ProductController extends Controller
         }
 
         $product = Product::create($validatedData);
-        /* $this->meilisearchClient->index('products')->addDocuments([
-            'id' => $product->id,
-            'name' => $product->name,
-            'price' => $product->price
-        ]); */
+
+        $this->meilisearch->createDocument('products', $product);
 
         return redirect()
             ->route('admin.products.index')

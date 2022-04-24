@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\MeilisearchService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,13 +48,8 @@ class Product extends Model
         return $this->hasMany(OrderProduct::class);
     }
 
-    static function searchFilter($query, $options)
+    static function searchFilter(string $query, array $options)
     {
-        $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
-            return $meilisearch->search($query, $options);
-        })
-            ->paginate(9);
-
-        return $searchResults;
+        return MeilisearchService::search('products', $query, $options);
     }
 }

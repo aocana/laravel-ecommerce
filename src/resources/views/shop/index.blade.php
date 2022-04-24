@@ -4,6 +4,9 @@
     @if (session('message'))
     <p>{{ session('message') }}</p>
     @endif
+    @if (request('q'))
+    <p class="text-2xl mb-10 text-bold text-center">{{ request('q') }} search results: </p>
+    @endif
     </p>
     <div class="grid gap-8 grid-cols-4">
         <form action="{{route('shop.search')}}" method="get" class="row-span-3">
@@ -55,5 +58,6 @@
         <p>No products found</p>
         @endforelse
     </div>
+
     <p>{{ $products->links() }}</p>
 </x-app-layout>
