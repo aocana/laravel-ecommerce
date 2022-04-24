@@ -58,7 +58,7 @@ class CategoryController extends Controller
     public function search(Request $request)
     {
         return view('admin.categories.index', [
-            'categories' => $this->searchTemplate($request, 'categories', Category::class)
+            'categories' => $this->searchTemplate($request, Category::class)
         ]);
     }
 }

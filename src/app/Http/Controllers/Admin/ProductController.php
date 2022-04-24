@@ -42,7 +42,7 @@ class ProductController extends Controller
 
         $product = Product::create($validatedData);
 
-        $this->meilisearch->createDocument('products', $product);
+        //$this->meilisearch->createDocument('products', $product);
 
         return redirect()
             ->route('admin.products.index')
@@ -91,6 +91,6 @@ class ProductController extends Controller
 
     public function search(Request $request): View
     {
-        return view('admin.products.index', ['products' => $this->searchTemplate($request, 'products', Product::class)]);
+        return view('admin.products.index', ['products' => $this->searchTemplate($request, Product::class)]);
     }
 }

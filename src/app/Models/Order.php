@@ -6,10 +6,11 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, Searchable, SoftDeletes;
 
     protected $fillable = ['user_id', 'status', 'checkout_id', 'total'];
 
@@ -24,13 +25,23 @@ class Order extends Model
         return $this->hasMany(OrderProduct::class);
     }
 
-    static function searchFilter($query, $options)
+    /* 
+    |-------
+    |Scout
+    |-------
+    */
+    public function searchableAs(): string
     {
-        $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
-            return $meilisearch->search($query, $options);
-        })
-            ->paginate(9);
+        return 'order';
+    }
 
-        return $searchResults;
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'customer' => $this->user->email,
+            'status' => $this->status,
+            'created_at' => $this->created_at
+        ];
     }
 }

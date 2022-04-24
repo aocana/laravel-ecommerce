@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\FileService;
-use App\Services\MeilisearchService;
 use App\Services\Stripe\CheckoutStripe;
 use App\Services\Stripe\CustomersStripe;
 use App\Services\Stripe\ProductsStripe;
@@ -21,14 +20,12 @@ class Controller extends BaseController
     protected CustomersStripe $stripeCustomers;
     protected ProductsStripe $stripeProducts;
     protected CheckoutStripe $stripeCheckout;
-    protected MeilisearchService $meilisearch;
     private array $filterOptions;
 
     public function __construct()
     {
         $this->fileService = new FileService();
         $this->stripeService = new ProductsStripe();
-        $this->meilisearch = new MeilisearchService();
         $this->stripeCheckout = new CheckoutStripe();
         $this->stripeCustomer = new CustomersStripe();
         $this->filterOptions = [
@@ -51,23 +48,21 @@ class Controller extends BaseController
             : $model->$action($data);
     }
 
-    public function searchTemplate(Request $request, string $meiliIndex, $model)
+    public function searchTemplate(Request $request, $model)
     {
         if ($request->sort) $this->filterOptions['sort'] = [$request->sort];
 
         $this->filterComprobation($request, 'brands', 'brand');
         $this->filterComprobation($request, 'categories', 'category');
 
-        $meilisearchResults = collect($this->meilisearch->search($meiliIndex, $request->input('q'), $this->filterOptions));
+        $query = $request->q;
+        $options = $this->filterOptions;
+        $searchResults =  $model::search($query, function ($meilisearch) use ($query, $options) {
+            return $meilisearch->search($query, $options);
+        })
+            ->paginate(9);
 
-        /* $items = collect();
-        $ids = $meilisearchResults->pluck('id');
-
-        foreach ($ids as $id) {
-            $items->push($model::where('id', $id)->get());
-        }
-        return $items;
- */
+        return $searchResults;
     }
 
     public function filterComprobation(Request $request, string $types, string $singularType)

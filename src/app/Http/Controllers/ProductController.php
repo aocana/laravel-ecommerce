@@ -18,6 +18,6 @@ class ProductController extends Controller
 
     public function search(Request $request): View
     {
-        return view('shop.index', ['products' => $this->searchTemplate($request, 'products', Product::class)]);
+        return view('shop.index', ['products' => $this->searchTemplate($request, Product::class)]);
     }
 }
