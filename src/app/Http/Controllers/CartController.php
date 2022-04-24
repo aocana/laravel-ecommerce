@@ -8,19 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
-use App\Services\Stripe\CheckoutStripe;
-use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
-
-    private $stripeService;
-
-    public function __construct(CheckoutStripe $stripeService)
-    {
-        $this->stripeService = $stripeService;
-    }
-
     public function index(Request $request): View
     {
         $products = $this->updateCart();
@@ -79,6 +69,6 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect($this->stripeService->paymentLink($products));
+        return redirect($this->stripeCheckout->paymentLink($products));
     }
 }

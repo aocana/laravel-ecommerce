@@ -16,17 +16,6 @@ use App\Http\Requests\Product\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
-    private FileService $fileService;
-    private ProductsStripe $stripeService;
-    private MeilisearchService $meilisearch;
-
-    public function __construct()
-    {
-        $this->fileService = new FileService();
-        $this->stripeService = new ProductsStripe();
-        $this->meilisearch = new MeilisearchService();
-    }
-
     public function index(): View
     {
         $products = Product::paginate(10);

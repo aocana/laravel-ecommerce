@@ -32,11 +32,11 @@
                 <div class="pt-6" id="filter-brand-mobile" style="display:none;">
                     <div class="space-y-6">
                         <div class="flex items-center">
-                            <input id="filter-mobile-category-0" name="brand[]" value="Apple" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
+                            <input id="filter-mobile-category-0" name="brands[]" value="Apple" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
                             <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">Apple</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="filter-mobile-category-0" name="brand[]" value="HP" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
+                            <input id="filter-mobile-category-0" name="brands[]" value="HP" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
                             <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">HP</label>
                         </div>
                     </div>
