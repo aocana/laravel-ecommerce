@@ -622,6 +622,9 @@ select {
   top: 0px;
   bottom: 0px;
 }
+.-left-5 {
+  left: -1.25rem;
+}
 .top-0 {
   top: 0px;
 }
@@ -630,6 +633,9 @@ select {
 }
 .right-0 {
   right: 0px;
+}
+.-left-10 {
+  left: -2.5rem;
 }
 .z-0 {
   z-index: 0;
@@ -793,6 +799,9 @@ select {
 }
 .w-6 {
   width: 1.5rem;
+}
+.w-1\/2 {
+  width: 50%;
 }
 .w-14 {
   width: 3.5rem;
@@ -1128,14 +1137,14 @@ select {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 }
-.pl-3 {
-  padding-left: 0.75rem;
-}
 .pl-10 {
   padding-left: 2.5rem;
 }
 .pr-4 {
   padding-right: 1rem;
+}
+.pl-3 {
+  padding-left: 0.75rem;
 }
 .pt-2 {
   padding-top: 0.5rem;

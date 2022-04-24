@@ -49,6 +49,7 @@ Route::get('/dashboard', function () {
 | Admin Routes
 |---------------
 */
+Route::get('p4dmin/products/search', [AdminProductController::class, 'search'])->name('admin.products.search');
 Route::prefix('p4dmin')->name('admin.')->group(function () {
     Route::get('/', AdminController::class)
         ->name('index');

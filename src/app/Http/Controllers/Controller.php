@@ -60,8 +60,14 @@ class Controller extends BaseController
 
         $meilisearchResults = collect($this->meilisearch->search($meiliIndex, $request->input('q'), $this->filterOptions));
 
-        return $model::whereIn('id', $meilisearchResults->pluck('id'))
-            ->paginate(9);
+        /* $items = collect();
+        $ids = $meilisearchResults->pluck('id');
+
+        foreach ($ids as $id) {
+            $items->push($model::where('id', $id)->get());
+        }
+        return $items;
+ */
     }
 
     public function filterComprobation(Request $request, string $types, string $singularType)

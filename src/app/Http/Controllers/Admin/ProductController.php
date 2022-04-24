@@ -6,11 +6,9 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\View\View;
-use App\Services\FileService;
-use App\Services\MeilisearchService;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Stripe\ProductsStripe;
 use App\Http\Requests\Product\ProductCreateRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
 
@@ -18,7 +16,7 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $products = Product::paginate(10);
+        $products = Product::latest()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -89,5 +87,10 @@ class ProductController extends Controller
         return redirect()
             ->route('admin.products.index')
             ->with('success', 'Product deleted succesfully');
+    }
+
+    public function search(Request $request): View
+    {
+        return view('admin.products.index', ['products' => $this->searchTemplate($request, 'products', Product::class)]);
     }
 }

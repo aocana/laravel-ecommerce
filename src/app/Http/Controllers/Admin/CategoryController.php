@@ -7,7 +7,6 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\SearchController;
 use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 
@@ -16,7 +15,7 @@ class CategoryController extends Controller
 
     public function index(): View
     {
-        $categories = Category::paginate(20);
+        $categories = Category::latest()->paginate(20);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -58,11 +57,8 @@ class CategoryController extends Controller
 
     public function search(Request $request)
     {
-        if (!$request->sort) $options['sort'] = ['name:asc'];
-        if (!$request->input('query')) $options['sort'] = ['name:asc'];
-
         return view('admin.categories.index', [
-            'categories' => Category::searchFilter($request->input('query'), $options)
+            'categories' => $this->searchTemplate($request, 'categories', Category::class)
         ]);
     }
 }

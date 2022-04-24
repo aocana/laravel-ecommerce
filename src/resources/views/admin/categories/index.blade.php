@@ -11,7 +11,7 @@
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <form action="{{route('admin.categories.search')}}" method="get">
-                    <input type="search" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Search category..." maxlength="30" name="query">
+                    <input type="search" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Search category..." maxlength="30" name="q">
                 </form>
                 @if(count($categories)>0)
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
