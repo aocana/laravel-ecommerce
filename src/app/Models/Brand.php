@@ -18,7 +18,7 @@ class Brand extends Model
         return $this->hasMany(Product::class);
     }
 
-    static function searchFilter($query, $options)
+    /*     static function searchFilter($query, $options)
     {
         $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
             return $meilisearch->search($query, $options);
@@ -26,5 +26,5 @@ class Brand extends Model
             ->paginate(9);
 
         return $searchResults;
-    }
+    } */
 }

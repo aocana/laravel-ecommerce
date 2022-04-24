@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ShopController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 
 
 Route::get('/', function () {
@@ -18,8 +18,8 @@ Route::get('/', function () {
 
 
 //shop
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop/search', [ShopController::class, 'search'])->name('shop.search');
+Route::get('/shop', [ProductController::class, 'index'])->name('shop.index');
+Route::get('/shop/search', [ProductController::class, 'search'])->name('shop.search');
 
 
 //orders
@@ -54,7 +54,7 @@ Route::prefix('p4dmin')->name('admin.')->group(function () {
         ->name('index');
     /*->middleware('auth', 'role:admin');*/
 
-    Route::resource('/products', ProductController::class);
+    Route::resource('/products', AdminProductController::class);
     /*->middleware('auth', 'role:admin');*/
 
     Route::resource('/categories', CategoryController::class)

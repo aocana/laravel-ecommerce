@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\FileService;
-use Stripe\Service\CustomerService;
 use App\Services\MeilisearchService;
 use App\Services\Stripe\CheckoutStripe;
+use App\Services\Stripe\CustomersStripe;
 use App\Services\Stripe\ProductsStripe;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -18,7 +18,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected FileService $fileService;
-    protected CustomerService $stripeCustomers;
+    protected CustomersStripe $stripeCustomers;
     protected ProductsStripe $stripeProducts;
     protected CheckoutStripe $stripeCheckout;
     protected MeilisearchService $meilisearch;
@@ -29,6 +29,8 @@ class Controller extends BaseController
         $this->fileService = new FileService();
         $this->stripeService = new ProductsStripe();
         $this->meilisearch = new MeilisearchService();
+        $this->stripeCheckout = new CheckoutStripe();
+        $this->stripeCustomer = new CustomersStripe();
         $this->filterOptions = [
             'sort' => [],
             'filter' => [],

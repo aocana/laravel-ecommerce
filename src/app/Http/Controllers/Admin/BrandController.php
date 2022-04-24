@@ -54,13 +54,10 @@ class BrandController extends Controller
             ->with('succes', 'Brand deleted succesfullly');
     }
 
-    public function search(Request $request)
+    public function search(Request $request): View
     {
-        if (!$request->sort) $options['sort'] = ['name:asc'];
-        if (!$request->input('query')) $options['sort'] = ['name:asc'];
-
         return view('admin.brands.index', [
-            'brands' => Brand::searchFilter($request->input('query'), $options)
+            'brands' => $this->searchTemplate($request, 'brands', Brand::class)
         ]);
     }
 }

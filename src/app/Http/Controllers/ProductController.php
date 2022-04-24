@@ -6,7 +6,7 @@ use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
-class ShopController extends Controller
+class ProductController extends Controller
 {
     public function index(): View
     {
