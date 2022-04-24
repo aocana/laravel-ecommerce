@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
 use App\Services\Stripe\CheckoutStripe;
@@ -22,31 +23,44 @@ class CartController extends Controller
 
     public function index(Request $request): View
     {
-        $products = collect(json_decode(Cookie::get('cart')));
+        $products = $this->updateCart();
         return view('cart.index', compact('products'));
     }
 
     public function addToCart(Product $product): RedirectResponse
     {
-        $collection = collect(json_decode(Cookie::get('cart')));
+        $productsOnCart = collect(json_decode(Cookie::get('cart')));
 
-        if (!$collection->contains('id', $product->id)) {
-            $collection->push($product);
+        if (!$productsOnCart->has('$product->id')) {
+            $productsOnCart[$product->id] = $product;
         }
 
-        Cookie::queue('cart', $collection->toJson(), 45000);
+        Cookie::queue('cart', $productsOnCart->toJson(), 45000);
 
         return redirect()->back()->with('message', 'Product added');
     }
 
-    static function updateCart(Product $product): void
+    static function updateCart(): Collection
     {
-        $collection = collect(json_decode(Cookie::get('cart')));
+        $productsOnCart = collect(json_decode(Cookie::get('cart')));
 
-        $key = $collection->where('id', '==', $product->id)->keys();
-        $collection[$key[0]] = $product->getAttributes();
+        if ($productsOnCart) {
+            foreach ($productsOnCart as $key => $product) {
+                $productsOnCart[$key] = Product::find($product->id);
+            }
+        }
 
-        Cookie::queue('cart', $collection->toJson(), 45000);
+        Cookie::queue('cart', $productsOnCart->toJson(), 45000);
+
+        return $productsOnCart;
+    }
+
+    public static function deleteFromCart(Product $product)
+    {
+        $productsOnCart = collect(json_decode(Cookie::get('cart')))->forget($product->id);
+        Cookie::queue('cart', $productsOnCart->toJson(), 45000);
+
+        return redirect()->back()->with('message', 'Product deleted');
     }
 
     public function checkout(Request $request): RedirectResponse
