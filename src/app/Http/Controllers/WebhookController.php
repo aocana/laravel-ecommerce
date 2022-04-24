@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
-use Laravel\Cashier\Cashier;
 use App\Models\OrderProduct;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cookie;
 use App\Services\Stripe\CheckoutStripe;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
 

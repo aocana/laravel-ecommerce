@@ -22,7 +22,7 @@ class CheckoutStripe
                 'allowed_countries' => ['ES']
             ],
             'mode' => 'payment',
-            'success_url' => env('APP_URL') . '/orders',
+            'success_url' => env('APP_URL') . '/cart/remove',
             'cancel_url' => env('APP_URL') . '/cart',
         ])->url;
     }

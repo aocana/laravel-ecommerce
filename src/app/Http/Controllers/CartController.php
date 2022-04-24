@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
 use App\Services\Stripe\CheckoutStripe;
-
+use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
@@ -55,12 +55,18 @@ class CartController extends Controller
         return $productsOnCart;
     }
 
-    public static function deleteFromCart(Product $product)
+    public function deleteFromCart(Product $product): RedirectResponse
     {
         $productsOnCart = collect(json_decode(Cookie::get('cart')))->forget($product->id);
         Cookie::queue('cart', $productsOnCart->toJson(), 45000);
 
         return redirect()->back()->with('message', 'Product deleted');
+    }
+
+    public function removeCart(): RedirectResponse
+    {
+        Cookie::queue(Cookie::forget('cart'));
+        return to_route('orders.index');
     }
 
     public function checkout(Request $request): RedirectResponse
