@@ -622,8 +622,8 @@ select {
   top: 0px;
   bottom: 0px;
 }
-.-left-5 {
-  left: -1.25rem;
+.-left-10 {
+  left: -2.5rem;
 }
 .top-0 {
   top: 0px;
@@ -633,9 +633,6 @@ select {
 }
 .right-0 {
   right: 0px;
-}
-.-left-10 {
-  left: -2.5rem;
 }
 .z-0 {
   z-index: 0;
@@ -649,6 +646,10 @@ select {
 .-my-2 {
   margin-top: -0.5rem;
   margin-bottom: -0.5rem;
+}
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -669,10 +670,6 @@ select {
 .-my-3 {
   margin-top: -0.75rem;
   margin-bottom: -0.75rem;
-}
-.my-10 {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -891,6 +888,9 @@ select {
 .flex-col {
   flex-direction: column;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 .items-center {
   align-items: center;
 }
@@ -906,6 +906,9 @@ select {
 .justify-between {
   justify-content: space-between;
 }
+.justify-around {
+  justify-content: space-around;
+}
 .justify-items-center {
   justify-items: center;
 }
@@ -920,6 +923,13 @@ select {
 }
 .gap-8 {
   gap: 2rem;
+}
+.gap-x-32 {
+  -moz-column-gap: 8rem;
+       column-gap: 8rem;
+}
+.gap-y-10 {
+  row-gap: 2.5rem;
 }
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -1193,6 +1203,10 @@ select {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 .text-base {
   font-size: 1rem;

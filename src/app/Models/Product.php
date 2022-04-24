@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Laravel\Scout\Searchable;
-use App\Services\MeilisearchService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +25,12 @@ class Product extends Model
         'brand_id',
         'category_id'
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
 
     /* 
     |-------
@@ -61,22 +66,6 @@ class Product extends Model
         return $this->is_visible == true;
     }
 
-    /* static function searchFilter($query, $options)
-    {
-        $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
-            return $meilisearch->search($query, $options);
-        })
-            ->paginate(9);
-
-        return $searchResults;
-    } */
-
-
-    /* RouteKeyName */
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
 
     /* 
     |-----------

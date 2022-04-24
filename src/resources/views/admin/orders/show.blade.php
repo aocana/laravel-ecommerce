@@ -1,18 +1,17 @@
 <x-admin-layout>
     <p class="text-2xl">Order #{{ $order->id }}</p>
-    <div class="flex">
+    <div class="flex my-10  justify-around flex-wrap">
         <div>
-            <p>Customer</p>
-            <p>Name:{{ $order->user->name }}</p>
-            <p>Email:{{ $order->user->email }}</p>
+            <p class="text-xl font-bold">Customer</p>
+            <p><span class="font-bold">Name:</span> {{ $order->user->name }}</p>
+            <p><span class="font-bold">Email:</span> {{ $order->user->email }}</p>
         </div>
-
         <div>
-
+            <p class="text-xl font-bold">Shipment</p>
+            <p>info</p>
         </div>
-
         <div>
-            <p>Order status</p>
+            <p class="text-xl font-bold">Order status</p>
             <p>{{ $order->status }}</p>
         </div>
 
