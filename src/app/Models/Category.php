@@ -25,25 +25,6 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
-    /* Scout */
-    public function searchableAs(): string
-    {
-        return 'categories';
-    }
-
-    public function sortableAttributes(): array
-    {
-        return ['name'];
-    }
-
-    public function toSearchableArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-        ];
-    }
-
     static function searchFilter($query, $options)
     {
         $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {

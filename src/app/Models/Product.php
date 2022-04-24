@@ -48,42 +48,6 @@ class Product extends Model
         return $this->hasMany(Order_Product::class);
     }
 
-
-    /* Scout */
-    public function searchableAs(): string
-    {
-        return 'products';
-    }
-
-    public function sortableAttributes(): array
-    {
-        return ['price', 'brand', 'category', 'name'];
-    }
-
-    public function shouldBeSearchable(): bool
-    {
-        return $this->is_visible === true;
-    }
-
-    public function toSearchableArray(): array
-    {
-        $attributtes = [
-            'id' => $this->id,
-            'name' => $this->name,
-            'price' => $this->price,
-        ];
-
-        if ($this->category) {
-            $attributtes['category'] = $this->category->name;
-        }
-
-        if ($this->brand) {
-            $attributtes['brand'] = $this->brand->name;
-        }
-
-        return $attributtes;
-    }
-
     static function searchFilter($query, $options)
     {
         $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
