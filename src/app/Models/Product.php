@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, Searchable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -45,7 +44,7 @@ class Product extends Model
 
     public function ordersProduct()
     {
-        return $this->hasMany(Order_Product::class);
+        return $this->hasMany(OrderProduct::class);
     }
 
     static function searchFilter($query, $options)

@@ -637,6 +637,9 @@ select {
 .z-50 {
   z-index: 50;
 }
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
 .row-span-3 {
   grid-row: span 3 / span 3;
 }
@@ -906,11 +909,11 @@ select {
 .gap-6 {
   gap: 1.5rem;
 }
-.gap-4 {
-  gap: 1rem;
-}
 .gap-5 {
   gap: 1.25rem;
+}
+.gap-4 {
+  gap: 1rem;
 }
 .gap-8 {
   gap: 2rem;

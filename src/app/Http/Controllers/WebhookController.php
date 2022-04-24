@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Order_Product;
+use Laravel\Cashier\Cashier;
+use App\Models\OrderProduct;
 use Illuminate\Support\Facades\DB;
-use App\Services\Stripe\CheckoutStripe;
 use Illuminate\Support\Facades\Log;
+use App\Services\Stripe\CheckoutStripe;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
 
 class WebhookController extends CashierWebhookController
@@ -27,7 +28,7 @@ class WebhookController extends CashierWebhookController
                 'user_id' => $user->id,
                 'status' => 'Preparing',
                 'checkout_id' => $payload['data']['object']['id'],
-                'total' => $payload['data']['object']['amount_total']
+                'total' => $payload['data']['object']['amount_total'] / 100
             ]);
 
             $products = $this->stripeService->checkoutItems($payload['data']['object']['id']);
@@ -37,11 +38,11 @@ class WebhookController extends CashierWebhookController
                 $product = Product::where('stripe_product_id', $item->price->product)->get()[0];
 
                 if ($product->stock >= $item->quantity) {
-                    Order_Product::create([
+                    OrderProduct::create([
                         'order_id' => $order->id,
                         'product_id' => $product->id,
                         'quantity' => $item->quantity,
-                        'price' => $item
+                        'unit_price' => $item->price->unit_amount / 100
                     ]);
 
                     //decrement stock

@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order_Product extends Model
+class OrderProduct extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $table = 'order_product';
 
-    protected $fillable = ['order_id', 'product_id', 'quantity', 'price'];
+    protected $fillable = ['order_id', 'product_id', 'quantity', 'unit_price'];
 
     public function order()
     {

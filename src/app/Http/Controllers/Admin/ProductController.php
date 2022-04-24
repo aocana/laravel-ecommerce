@@ -44,7 +44,6 @@ class ProductController extends Controller
     public function store(ProductCreateRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
-        $validatedData['price'] = (float) $validatedData['price'];
         $validatedData['image'] = $this->fileService->upload('products', $request->image);
 
         $stripeProduct = $this->stripeService->createProduct($validatedData);

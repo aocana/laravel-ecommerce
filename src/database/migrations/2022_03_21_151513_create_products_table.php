@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('stripe_product_id')->unique();
             $table->string('stripe_price_id')->unique();
-            $table->float('price');
+            $table->decimal('price');
             $table->string('image')->nullable();
             $table->integer('stock');
             $table->integer('sku')->nullable();

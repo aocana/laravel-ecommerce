@@ -20,7 +20,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->enum('status', ['Preparing', 'Sent', 'In delivery', 'Delivered']);
             $table->string('checkout_id');
-            $table->float('total');
+            $table->decimal('total');
             $table->timestamps();
             $table->softDeletes();
         });
