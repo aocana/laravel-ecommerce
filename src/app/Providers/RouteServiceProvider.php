@@ -35,6 +35,11 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('p4dmin')
+                ->middleware('web', 'auth', 'admin')
+                ->name('admin.')
+                ->group(base_path('routes/admin.php'));
         });
     }
 

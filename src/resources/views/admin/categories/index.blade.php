@@ -23,12 +23,16 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($categories as $category)
-                            <tr class="flex items-center justify-between py-5">
+                            <tr class="flex items-center justify-between py-3">
                                 <td class="px-6  whitespace-nowrap text-sm font-medium text-gray-900">
                                     {{ $category->name }}
                                 </td>
                                 <td class="px-6 whitespace-nowrap text-right text-sm font-medium flex justify-center items-center gap-5">
-                                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                        </svg>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
