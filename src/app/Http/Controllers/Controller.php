@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\FileService;
 use App\Services\Stripe\CheckoutStripe;
 use App\Services\Stripe\CustomersStripe;
 use App\Services\Stripe\ProductsStripe;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -20,10 +22,12 @@ class Controller extends BaseController
     protected CustomersStripe $stripeCustomers;
     protected ProductsStripe $stripeProducts;
     protected CheckoutStripe $stripeCheckout;
+    protected Collection $categories;
     private array $filterOptions;
 
     public function __construct()
     {
+        $this->categories = Category::latest()->get();
         $this->fileService = new FileService();
         $this->stripeService = new ProductsStripe();
         $this->stripeCheckout = new CheckoutStripe();
@@ -34,26 +38,14 @@ class Controller extends BaseController
         ];
     }
 
-    public function __call($name, $arguments)
-    {
-        [$model, $action] = $arguments;
-
-        $data = [
-            'name' => request()->name,
-            'slug' => request()->slug,
-        ];
-
-        return $action === 'create'
-            ? $model::$action($data)
-            : $model->$action($data);
-    }
-
+    /* Meilisearch */
     public function searchTemplate(Request $request, $model)
     {
         if ($request->sort) $this->filterOptions['sort'] = [$request->sort];
 
         $this->filterComprobation($request, 'brands', 'brand');
         $this->filterComprobation($request, 'categories', 'category');
+        $this->filterComprobation($request, 'status', 'status');
 
         $query = $request->q;
         $options = $this->filterOptions;

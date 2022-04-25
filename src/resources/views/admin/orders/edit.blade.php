@@ -11,8 +11,8 @@
             <p>info</p>
         </div>
         <div>
-            <form action="" method="post">
-                @PUT
+            <form action="{{route('admin.orders.update)}}" method="post">
+                @PATCH
                 <p class="text-xl font-bold">Order status</p>
                 <select name="status">
                     <option value="Preparing">Preparing</option>

@@ -97,8 +97,8 @@
             @enderror
         </div>
 
-        <div class="flex justify-end mt-6">
-            <input type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600" value="Create">
+        <div class="flex justify-center mt-6">
+            <input type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 cursor-pointer" value="Create">
         </div>
     </form>
 </x-admin-layout>

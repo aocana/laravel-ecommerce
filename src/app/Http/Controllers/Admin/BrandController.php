@@ -25,7 +25,8 @@ class BrandController extends Controller
 
     public function store(BrandCreateRequest $request): RedirectResponse
     {
-        $this->createModel(Brand::class, 'create', 'brands');
+        Brand::create($request->validated());
+
         return redirect()
             ->route('admin.brands.index')
             ->with('succes', 'Brand created succesfully');
@@ -38,7 +39,7 @@ class BrandController extends Controller
 
     public function update(BrandUpdateRequest $request, Brand $brand): RedirectResponse
     {
-        $this->updateModel($brand, 'update', 'brands');
+        $brand->update($request->validated());
         return redirect()
             ->route('admin.brands.index')
             ->with('succes', 'Brand updated succesfully');
@@ -57,7 +58,7 @@ class BrandController extends Controller
     public function search(Request $request): View
     {
         return view('admin.brands.index', [
-            'brands' => $this->searchTemplate($request, 'brands', Brand::class)
+            'brands' => $this->searchTemplate($request, Brand::class)
         ]);
     }
 }

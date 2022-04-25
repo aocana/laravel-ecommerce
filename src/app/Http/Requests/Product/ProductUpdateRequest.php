@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Product;
 
-use App\Models\Brand;
-use App\Models\Category;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,9 +12,9 @@ class ProductUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return true;
+        return auth()->user()->is_admin;
     }
 
     /**
@@ -27,8 +25,6 @@ class ProductUpdateRequest extends FormRequest
     public function rules(): array
     {
         $product = request('product');
-        $brands = Brand::all()->pluck('id')->implode(',');
-        $categories = Category::all()->pluck('id')->implode(',');
 
         return [
             'name' => 'required|min:2|max:100',
@@ -39,8 +35,8 @@ class ProductUpdateRequest extends FormRequest
             'stock' => 'required|integer|min:1',
             'sku' => ['nullable', 'min:2', 'string', Rule::unique('products', 'sku')->ignore($product->sku)],
             'is_visible' => 'required|boolean',
-            'brand_id' => "nullable|in:$brands",
-            'category_id' => "nullable|in:$categories",
+            'brand_id' => "nullable|exists:brands,id",
+            'category_id' => "nullable|exists:categories,id",
         ];
     }
 }

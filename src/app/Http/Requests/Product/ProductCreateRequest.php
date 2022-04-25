@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Product;
 
-use App\Models\Brand;
-use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductCreateRequest extends FormRequest
@@ -15,7 +13,7 @@ class ProductCreateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->is_admin;
     }
 
     /**
@@ -25,9 +23,6 @@ class ProductCreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $brands = Brand::all()->pluck('id')->implode(',');
-        $categories = Category::all()->pluck('id')->implode(',');
-
         return [
             'name' => 'required|min:2|max:100',
             'slug' => 'required|unique:products,slug|min:2|max:100|string',
@@ -37,8 +32,8 @@ class ProductCreateRequest extends FormRequest
             'stock' => 'required|integer|min:1',
             'sku' => 'nullable|unique:products,sku',
             'is_visible' => 'required|boolean',
-            'brand_id' => "nullable|in:$brands",
-            'category_id' => "nullable|in:$categories",
+            'brand_id' => "nullable|exists:brands,id",
+            'category_id' => "nullable|exists:categories,id",
         ];
     }
 }

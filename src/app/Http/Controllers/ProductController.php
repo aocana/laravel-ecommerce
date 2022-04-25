@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -13,11 +14,19 @@ class ProductController extends Controller
         $products = Product::where('is_visible', 1)
             ->paginate(9);
 
-        return view('shop.index', compact('products'));
+        return view('shop.index', [
+            'products' => $products,
+            'categories' => $this->categories,
+            'brands' => Brand::latest()->get()
+        ]);
     }
 
     public function search(Request $request): View
     {
-        return view('shop.index', ['products' => $this->searchTemplate($request, Product::class)]);
+        return view('shop.index', [
+            'products' => $this->searchTemplate($request, Product::class),
+            'categories' => $this->categories,
+            'brands' => Brand::latest()->get()
+        ]);
     }
 }

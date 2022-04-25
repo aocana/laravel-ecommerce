@@ -26,7 +26,7 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request): RedirectResponse
     {
-        $this->createModel(Category::class, 'create', 'categories');
+        Category::create($request->validated());
 
         return redirect()
             ->route('admin.categories.index')
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
-        $this->updateModel($category, 'update', 'categories');
+        $category->update($request->validated());
 
         return redirect()
             ->route('admin.categories.index')

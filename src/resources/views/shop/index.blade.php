@@ -1,6 +1,5 @@
 <x-app-layout>
     <!-- <h1 class="text-4xl font-bold">Shop</h1> -->
-
     @if (session('message'))
     <p>{{ session('message') }}</p>
     @endif
@@ -32,12 +31,12 @@
                 <div class="pt-6" id="filter-brand-mobile" style="display:none;">
                     <div class="space-y-6">
                         <div class="flex items-center">
-                            <input id="filter-mobile-category-0" name="brands[]" value="Apple" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
-                            <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">Apple</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="filter-mobile-category-0" name="brands[]" value="HP" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
-                            <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">HP</label>
+                            @foreach($brands as $brand)
+                            <input id="filter-mobile-category-0" name="brands[]" value="{{ $brand->name }}" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
+                            <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">{{ $brand->name }}</label>
+                            @endforeach
+                            <!-- <input id="filter-mobile-category-0" name="brands[]" value="Apple" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500">
+                            <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">Apple</label> -->
                         </div>
                     </div>
                 </div>

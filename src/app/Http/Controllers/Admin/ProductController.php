@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,15 +16,23 @@ class ProductController extends Controller
     public function index(): View
     {
         $products = Product::latest()->paginate(10);
+        $brands = Brand::latest()->get();
 
-        return view('admin.products.index', compact('products'));
+        return view('admin.products.index', [
+            'products' => $products,
+            'brands' => $brands,
+            'categories' => $this->categories,
+        ]);
     }
 
     public function create(): View
     {
         $brands = Brand::all();
-        $categories = Category::all();
-        return view('admin.products.create', compact('brands', 'categories'));
+
+        return view('admin.products.create', [
+            'brands' => $brands,
+            'categories' => $this->categories,
+        ]);
     }
 
     public function store(ProductCreateRequest $request): RedirectResponse
@@ -40,9 +47,7 @@ class ProductController extends Controller
             $validatedData['stripe_price_id'] = $stripeProduct['price_id'];
         }
 
-        $product = Product::create($validatedData);
-
-        //$this->meilisearch->createDocument('products', $product);
+        Product::create($validatedData);
 
         return redirect()
             ->route('admin.products.index')
@@ -51,15 +56,18 @@ class ProductController extends Controller
 
     public function show(Product $product): View
     {
-        return view('admin.products.show', $product);
+        return view('admin.products.show', compact('product'));
     }
 
     public function edit(Product $product): View
     {
         $brands = Brand::all();
-        $categories = Category::all();
 
-        return view('admin.products.edit', compact('product', 'brands', 'categories'));
+        return view('admin.products.edit', [
+            'product' => $product,
+            'brands' => $brands,
+            'categories' => $this->categories,
+        ]);
     }
 
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
@@ -91,6 +99,10 @@ class ProductController extends Controller
 
     public function search(Request $request): View
     {
-        return view('admin.products.index', ['products' => $this->searchTemplate($request, Product::class)]);
+        return view('admin.products.index', [
+            'products' => $this->searchTemplate($request, Product::class),
+            'categories' => $this->categories,
+            'brands' => Brand::latest()->get()
+        ]);
     }
 }

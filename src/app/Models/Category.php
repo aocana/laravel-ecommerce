@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    use HasFactory, Searchable, SoftDeletes;
+    use HasFactory, Searchable;
 
     protected $fillable = ['name', 'slug'];
 
@@ -23,16 +22,6 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
-    }
-
-    static function searchFilter($query, $options)
-    {
-        $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
-            return $meilisearch->search($query, $options);
-        })
-            ->paginate(9);
-
-        return $searchResults;
     }
 
     /* 
