@@ -90,14 +90,21 @@
             </div>
         </form>
         @forelse($products as $product)
-        <div class="rounded-lg border-solid border-2 border-gray-100 shadow-lg">
+        <a href="{{ route('shop.detail', $product) }}" class="group">
+            <div class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+                <img src="{{ asset('storage/' . $product->image) }}" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="w-full h-full object-center object-cover group-hover:opacity-75">
+            </div>
+            <h3 class="mt-4 text-sm text-gray-700">{{ $product->name }}</h3>
+            <p class="mt-1 text-lg font-medium text-gray-900">{{ $product->price }} €</p>
+        </a>
+        <!-- <div class="rounded-lg border-solid border-2 border-gray-100 shadow-lg">
             <a href="{{ route('shop.detail', $product) }}">
                 <img src="{{ asset('storage/' . $product->image) }}" width="200px" height="200px" alt="{{ $product->name }}">
             </a>
-            <p><a href="{{ route('shop.detail', $product) }}">{{ $product->name }}</a></p>
+            <p><a href="#">{{ $product->name }}</a></p>
             <p>{{ $product->price }}€</p>
             <p><a href="{{ route('cart.add', $product) }}">Add to cart</a></p>
-        </div>
+        </div> -->
         @empty
         <p>No products found</p>
         @endforelse

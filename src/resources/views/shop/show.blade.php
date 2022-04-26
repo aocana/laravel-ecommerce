@@ -17,7 +17,7 @@
                 <div class="flex mt-10 items-center">
                     @if($product->stock < 150) <p class="text-red-500 border-2 border-red-500 py-2 px-4 focus:outline-none rounded mt-10 sm:mt-0">Only {{ $product->stock }} in stock</p>
                         @else
-                        <p class="text-red-500">In stock</p>
+                        <p class="border-2 border-green-600 py-2 px-4 rounded">In stock</p>
                         @endif
                 </div>
                 <div class="flex mt-10 items-center">
