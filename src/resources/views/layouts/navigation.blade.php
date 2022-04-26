@@ -64,7 +64,7 @@
                 <x-dropdown-link :href="route('orders.index')">
                     {{ __('Orders') }}
                 </x-dropdown-link>
-                <x-dropdown-link :href="route('profile.show')">
+                <x-dropdown-link :href="route('profile.index')">
                     {{ __('Profile') }}
                 </x-dropdown-link>
                 @admin

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\InStock;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
@@ -61,14 +63,30 @@ class CartController extends Controller
 
     public function checkout(Request $request): RedirectResponse
     {
-        $products = [];
+        //comprobar si el producto tiene stock
+        $products = collect();
         for ($i = 0; $i < count($request->price); $i++) {
-            array_push($products, [
+            $products->push([
                 'price' => $request->price[$i],
                 'quantity' => $request->quantity[$i],
             ]);
         }
 
-        return redirect($this->stripeCheckout->paymentLink($products));
+        $data = [
+            'ids' => $products->pluck('price')->toArray(),
+            'quantity' => $products->pluck('quantity')->toArray()
+        ];
+
+        Validator::make(
+            $data,
+            [
+                'ids' => 'required|array|min:1',
+                'ids.*' => 'required|string|exists:products,stripe_price_id',
+                'quantity' => 'required|array|min:1',
+                'quantity.*' => ['required', 'numeric', 'min:1', 'max:10', new InStock()],
+            ],
+        )->validate();
+
+        return redirect($this->stripeCheckout->paymentLink($products->toArray()));
     }
 }

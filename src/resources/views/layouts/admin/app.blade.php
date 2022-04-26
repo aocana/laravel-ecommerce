@@ -21,7 +21,7 @@
 <body class="font-sans antialiased flex flex-column">
 
     <div class="flex flex-col w-64 h-screen px-4 py-8 bg-white border-r dark:bg-gray-800 dark:border-gray-600">
-        <p class="text-3xl font-semibold text-gray-800 dark:text-white"><a href="{{route('home')}}">Ocana</a></p>
+        <p class="text-3xl font-semibold text-gray-800 dark:text-white"><a href="{{route('shop.index')}}">Ocana</a></p>
 
         <div class="flex flex-col justify-between flex-1 mt-6">
             <nav>

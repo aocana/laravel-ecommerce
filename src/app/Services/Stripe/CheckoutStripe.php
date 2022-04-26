@@ -3,6 +3,7 @@
 namespace App\Services\Stripe;
 
 use Stripe\StripeClient;
+use Illuminate\Support\Collection;
 
 class CheckoutStripe
 {

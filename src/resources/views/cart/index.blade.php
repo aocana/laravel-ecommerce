@@ -1,6 +1,15 @@
 <x-app-layout>
     <div class="py-12 sm:px-5 md:px-10 l:px-24 xl:px-40">
         <p class="mb-5 text-2xl">Cart</p>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <form action="{{route('cart.checkout')}}" method="post">
             @csrf
             @forelse ($products as $product)

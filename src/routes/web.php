@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -24,8 +24,11 @@ Route::get('/orders/{order}', [OrderController::class, 'show'])->middleware(['au
 
 
 //profile
-Route::get('/profile', [ProfileController::class, 'show'])->middleware(['auth'])->name('profile.show');
-Route::get('/profile/{user:id}', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile.edit');
+Route::get('/profile', [UserController::class, 'index'])->middleware(['auth'])->name('profile.index');
+Route::get('/profile/{user:id}/edit', [UserController::class, 'edit'])->middleware(['auth'])->name('profile.edit');
+Route::put('/profile/{user:id}', [UserController::class, 'update'])->middleware(['auth'])->name('profile.update');
+Route::get('/profile/change-password', [UserController::class, 'changePassword'])->middleware(['auth'])->name('profile.change-password');
+Route::post('/profile/change-password', [UserController::class, 'newPassword'])->middleware(['auth'])->name('profile.new-password');
 
 
 //cart
