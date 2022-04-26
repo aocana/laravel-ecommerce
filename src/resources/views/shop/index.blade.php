@@ -19,7 +19,6 @@
     @if (request('q'))
     <p class="text-2xl mb-10 text-bold text-center">{{ request('q') }} search results: </p>
     @endif
-    </p>
     <div class="grid gap-8 grid-cols-4">
         <form action="{{route('shop.search')}}" method="get" class="row-span-3">
             <!-- categories -->
@@ -95,7 +94,7 @@
             <a href="{{ route('shop.detail', $product) }}">
                 <img src="{{ asset('storage/' . $product->image) }}" width="200px" height="200px" alt="{{ $product->name }}">
             </a>
-            <p><a href="#">{{ $product->name }}</a></p>
+            <p><a href="{{ route('shop.detail', $product) }}">{{ $product->name }}</a></p>
             <p>{{ $product->price }}€</p>
             <p><a href="{{ route('cart.add', $product) }}">Add to cart</a></p>
         </div>

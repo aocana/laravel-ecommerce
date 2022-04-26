@@ -11,7 +11,7 @@ use App\Http\Controllers\CategoryController;
 
 //shop
 Route::get('/', [ProductController::class, 'index'])->name('shop.index');
-Route::get('shop/{product}', [ProductController::class, 'show'])->name('shop.detail');
+Route::get('/shop/{product}', [ProductController::class, 'show'])->name('shop.detail');
 Route::get('/search', [ProductController::class, 'search'])->name('shop.search');
 
 //categories
@@ -35,10 +35,10 @@ Route::post('/profile/change-password', [UserController::class, 'newPassword'])-
 
 //cart
 Route::get('/cart', [CartController::class, 'index'])->middleware(['auth'])->name('cart.index');
-Route::post('/cart', [CartController::class, 'checkout'])->middleware(['auth'])->name('cart.checkout');
-Route::get('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart/remove', [CartController::class, 'removeCart']);
+Route::get('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart/delete/{product}', [CartController::class, 'deleteFromCart'])->name('cart.delete');
+Route::post('/cart', [CartController::class, 'checkout'])->middleware(['auth'])->name('cart.checkout');
 
 
 //stripe webhook

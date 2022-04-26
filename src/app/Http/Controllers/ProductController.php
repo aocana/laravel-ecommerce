@@ -21,9 +21,9 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show(Product $product)
+    public function show(Product $product): View
     {
-        dd($product);
+        return view('shop.show', compact('product'));
     }
 
     public function search(Request $request): View
