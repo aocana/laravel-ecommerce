@@ -3,19 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\ProfileController;
-
-Route::get('/', function () {
-    return view('home.index');
-})->name('home');
 
 
 //shop
-Route::get('/shop', [ProductController::class, 'index'])->name('shop.index');
-Route::get('/shop/search', [ProductController::class, 'search'])->name('shop.search');
+Route::get('/', [ProductController::class, 'index'])->name('shop.index');
+Route::get('/search', [ProductController::class, 'search'])->name('shop.search');
 
 //categories
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -29,6 +25,8 @@ Route::get('/orders/{order}', [OrderController::class, 'show'])->middleware(['au
 
 //profile
 Route::get('/profile', [ProfileController::class, 'show'])->middleware(['auth'])->name('profile.show');
+Route::get('/profile/{user:id}', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile.edit');
+
 
 //cart
 Route::get('/cart', [CartController::class, 'index'])->middleware(['auth'])->name('cart.index');
@@ -40,11 +38,5 @@ Route::get('/cart/delete/{product}', [CartController::class, 'deleteFromCart'])-
 
 //stripe webhook
 Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 
 require __DIR__ . '/auth.php';

@@ -9,6 +9,11 @@ $(document).ready(function () {
     $("#brand-cross").toggle();
     $("#filter-brand-mobile").toggle();
   });
+  $("#categoryButton").click(function () {
+    $("#category-plus").toggle();
+    $("#category-cross").toggle();
+    $("#filter-category-mobile").toggle();
+  });
 });
 /******/ })()
 ;
