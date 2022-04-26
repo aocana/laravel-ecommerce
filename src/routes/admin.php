@@ -26,6 +26,7 @@ Route::get('/brands/search', [BrandController::class, 'search'])->name('brands.s
 
 // Orders 
 Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+Route::get('/orders/search', [AdminOrderController::class, 'search'])->name('orders.search');
 Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
 Route::get('/orders/{order}/edit', [AdminOrderController::class, 'edit'])->name('orders.edit');
-Route::put('/orders/{order}', [AdminOrderController::class, 'edit'])->name('orders.update');
+Route::patch('/orders/{order}', [AdminOrderController::class, 'update'])->name('orders.update');

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -16,21 +15,18 @@ class ProductController extends Controller
     public function index(): View
     {
         $products = Product::latest()->paginate(10);
-        $brands = Brand::latest()->get();
 
         return view('admin.products.index', [
             'products' => $products,
-            'brands' => $brands,
+            'brands' => $this->brands,
             'categories' => $this->categories,
         ]);
     }
 
     public function create(): View
     {
-        $brands = Brand::all();
-
         return view('admin.products.create', [
-            'brands' => $brands,
+            'brands' => $this->brands,
             'categories' => $this->categories,
         ]);
     }
@@ -61,11 +57,9 @@ class ProductController extends Controller
 
     public function edit(Product $product): View
     {
-        $brands = Brand::all();
-
         return view('admin.products.edit', [
             'product' => $product,
-            'brands' => $brands,
+            'brands' => $this->brands,
             'categories' => $this->categories,
         ]);
     }
@@ -102,7 +96,7 @@ class ProductController extends Controller
         return view('admin.products.index', [
             'products' => $this->searchTemplate($request, Product::class),
             'categories' => $this->categories,
-            'brands' => Brand::latest()->get()
+            'brands' => $this->brands
         ]);
     }
 }

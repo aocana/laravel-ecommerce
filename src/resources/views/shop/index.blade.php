@@ -73,8 +73,8 @@
         </form>
         @forelse($products as $product)
         <div class="rounded-lg border-solid border-2 border-gray-100 shadow-lg">
-            <a href="#">
-                <img src="https://img02.honorfile.com/eu/es/honor/pms/product/6936520804108/428_428_4B417C7664EA24606D89FA2F599841CEE2313E64C37C7C78mp.jpg" alt="{{ $product->name }}">
+            <a href="{{ route('shop.detail', $product) }}">
+                <img src="{{ asset('storage/' . $product->image) }}" width="200px" height="200px" alt="{{ $product->name }}">
             </a>
             <p><a href="#">{{ $product->name }}</a></p>
             <p>{{ $product->price }}€</p>

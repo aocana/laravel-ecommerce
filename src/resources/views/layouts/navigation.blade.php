@@ -2,7 +2,8 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
-            <div class="flex">
+            <div class="flex gap-5">
+                <a href="/">Home</a>
                 @foreach($categories as $category)
                 <a href="{{ route('categories.show', $category) }}">{{ $category->name }}</a>
                 @endforeach

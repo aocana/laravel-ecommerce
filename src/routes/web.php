@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController;
 
 //shop
 Route::get('/', [ProductController::class, 'index'])->name('shop.index');
+Route::get('shop/{product}', [ProductController::class, 'show'])->name('shop.detail');
 Route::get('/search', [ProductController::class, 'search'])->name('shop.search');
 
 //categories
@@ -20,6 +21,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show'])->name('c
 
 //orders
 Route::get('/orders', [OrderController::class, 'index'])->middleware(['auth'])->name('orders.index');
+Route::get('/orders/search', [OrderController::class, 'search'])->middleware(['auth'])->name('orders.search');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->middleware(['auth'])->name('orders.show');
 
 

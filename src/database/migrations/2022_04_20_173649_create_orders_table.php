@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->constrained('users', 'id')
                 ->onDelete('cascade');
-            $table->enum('status', ['Preparing', 'Sent', 'In delivery', 'Delivered']);
+            $table->enum('status', ['Preparing', 'Sent', 'Delivery', 'Delivered']);
             $table->string('checkout_id');
             $table->decimal('total');
             $table->timestamps();

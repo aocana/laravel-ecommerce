@@ -17,8 +17,13 @@ class ProductController extends Controller
         return view('shop.index', [
             'products' => $products,
             'categories' => $this->categories,
-            'brands' => Brand::latest()->get()
+            'brands' => $this->brands
         ]);
+    }
+
+    public function show(Product $product)
+    {
+        dd($product);
     }
 
     public function search(Request $request): View
@@ -26,7 +31,7 @@ class ProductController extends Controller
         return view('shop.index', [
             'products' => $this->searchTemplate($request, Product::class),
             'categories' => $this->categories,
-            'brands' => Brand::latest()->get()
+            'brands' => $this->brands
         ]);
     }
 }

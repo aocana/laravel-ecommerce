@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-app-layout>
     <p class="text-2xl">Order #{{ $order->id }}</p>
     <div class="flex my-10  justify-around flex-wrap">
         <div>
@@ -11,18 +11,8 @@
             <p>info</p>
         </div>
         <div>
-            <form action="{{route('admin.orders.update', $order)}}" method="post">
-                @csrf
-                @method('PATCH')
-                <p class="text-xl font-bold">Order status</p>
-                <select name="status">
-                    <option value="Preparing">Preparing</option>
-                    <option value="Sent">Sent</option>
-                    <option value="In delivery">In delivery</option>
-                    <option value="Delivered">Delivered</option>
-                </select>
-                <input type="submit" value="Save" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600 ml-3">
-            </form>
+            <p class="text-xl font-bold">Order status</p>
+            <p>{{ $order->status }}</p>
         </div>
 
     </div>
@@ -70,4 +60,4 @@
             </tbody>
         </table>
     </div>
-</x-admin-layout>
+</x-app-layout>

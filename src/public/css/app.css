@@ -692,11 +692,14 @@ select {
 .mb-5 {
   margin-bottom: 1.25rem;
 }
-.mt-10 {
-  margin-top: 2.5rem;
+.mt-5 {
+  margin-top: 1.25rem;
 }
 .ml-4 {
   margin-left: 1rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
 }
 .mb-6 {
   margin-bottom: 1.5rem;
@@ -736,9 +739,6 @@ select {
 }
 .-mt-px {
   margin-top: -1px;
-}
-.mt-5 {
-  margin-top: 1.25rem;
 }
 .block {
   display: block;
@@ -896,6 +896,9 @@ select {
 }
 .flex-wrap {
   flex-wrap: wrap;
+}
+.items-end {
+  align-items: flex-end;
 }
 .items-center {
   align-items: center;
@@ -1107,6 +1110,10 @@ select {
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 .py-3 {
   padding-top: 0.75rem;

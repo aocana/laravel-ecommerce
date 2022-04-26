@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Order\OrderUpdateRequest;
@@ -33,5 +34,12 @@ class OrderController extends Controller
         return redirect()
             ->route('admin.orders.index')
             ->with('success', 'Order status updated succesfully');
+    }
+
+    public function search(Request $request): View
+    {
+        return view('admin.orders.index', [
+            'orders' => $this->searchTemplate($request, Order::class),
+        ]);
     }
 }

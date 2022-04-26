@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\FileService;
 use App\Services\Stripe\CheckoutStripe;
-use App\Services\Stripe\CustomersStripe;
 use App\Services\Stripe\ProductsStripe;
+use App\Services\Stripe\CustomersStripe;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -18,16 +19,18 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    private array $filterOptions;
+    protected Collection $brands;
+    protected Collection $categories;
     protected FileService $fileService;
     protected CustomersStripe $stripeCustomers;
     protected ProductsStripe $stripeProducts;
     protected CheckoutStripe $stripeCheckout;
-    protected Collection $categories;
-    private array $filterOptions;
 
     public function __construct()
     {
         $this->categories = Category::latest()->get();
+        $this->brands = Brand::latest()->get();
         $this->fileService = new FileService();
         $this->stripeService = new ProductsStripe();
         $this->stripeCheckout = new CheckoutStripe();
