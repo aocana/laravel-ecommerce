@@ -1,13 +1,15 @@
 # Laravel e-commerce
 
-![Status](https://img.shields.io/badge/Status-60%25-orange)
+![Status](https://img.shields.io/badge/Status-70%25-orange)
 
 Laravel e-commerce project
 
-## Stack
+## Technologies
 
 - [Laravel](https://laravel.com/)
 - [PostgreSQL](https://www.postgresql.org/)
+- [Meilisearch](https://www.meilisearch.com/)
+- [Stripe](https://stripe.com/en-es)
 
 # Getting Started
 
