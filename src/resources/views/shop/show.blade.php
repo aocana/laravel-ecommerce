@@ -10,7 +10,7 @@
                     <a href="{{ route('categories.show', $product->category) }}">{{ $product->category->name }}</a>
                     @endif
                     @if($product->brand)
-                    <a href="{{ route('categories.show', $product->brand) }}">{{ $product->brand->name }}</a>
+                    <a href="{{ route('brands.show', $product->brand) }}">{{ $product->brand->name }}</a>
                     @endif
                 </div>
                 <p class="leading-relaxed">{{ $product->description }}</p>

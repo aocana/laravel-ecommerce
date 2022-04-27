@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WebhookController;
@@ -15,8 +16,10 @@ Route::get('/shop/{product}', [ProductController::class, 'show'])->name('shop.de
 Route::get('/search', [ProductController::class, 'search'])->name('shop.search');
 
 //categories
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+//Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+//brands
+Route::get('/brands/{brand}', [BrandController::class, 'show'])->name('brands.show');
 
 
 //orders
