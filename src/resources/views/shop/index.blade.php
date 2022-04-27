@@ -21,6 +21,15 @@
     @endif
     <div class="grid gap-8 grid-cols-4">
         <form action="{{route('shop.search')}}" method="get" class="row-span-3">
+            <div class="border-t border-gray-200 px-4 py-6">
+                <select name="sort" class="-left-10 rounded-md">
+                    <option selected disabled> Sort By</option>
+                    <option value="name:asc">Name asc</option>
+                    <option value="name:desc">Name desc</option>
+                    <option value="price:asc">Price asc</option>
+                    <option value="price:desc">Price desc</option>
+                </select>
+            </div>
             <!-- categories -->
             <div class="border-t border-gray-200 px-4 py-6">
                 <h3 class="-mx-2 -my-3 flow-root">

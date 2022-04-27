@@ -29,7 +29,7 @@ class InStock implements Rule, DataAwareRule
 
     public function message()
     {
-        return 'The validation error message.';
+        return 'No stock';
     }
 
 

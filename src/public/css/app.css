@@ -849,6 +849,9 @@ select {
 .h-52 {
   height: 13rem;
 }
+.h-64 {
+  height: 16rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
