@@ -47,7 +47,7 @@ class CartController extends Controller
         return $productsOnCart;
     }
 
-    public function deleteFromCart(Product $product): RedirectResponse
+    static function deleteFromCart(Product $product): RedirectResponse
     {
         $productsOnCart = collect(json_decode(Cookie::get('cart')))->forget($product->id);
         Cookie::queue('cart', $productsOnCart->toJson(), 45000);
@@ -63,7 +63,6 @@ class CartController extends Controller
 
     public function checkout(Request $request): RedirectResponse
     {
-        //comprobar si el producto tiene stock
         $products = collect();
         for ($i = 0; $i < count($request->price); $i++) {
             $products->push([
