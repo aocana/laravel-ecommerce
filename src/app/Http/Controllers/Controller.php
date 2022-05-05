@@ -49,6 +49,7 @@ class Controller extends BaseController
         $this->filterComprobation($request, 'brands', 'brand');
         $this->filterComprobation($request, 'categories', 'category');
         $this->filterComprobation($request, 'status', 'status');
+        $this->filterComprobation($request, 'customer', 'customer');
 
         $query = $request->q;
         $options = $this->filterOptions;
@@ -56,7 +57,6 @@ class Controller extends BaseController
             return $meilisearch->search($query, $options);
         })
             ->paginate(9);
-
         return $searchResults;
     }
 
@@ -65,7 +65,11 @@ class Controller extends BaseController
         if ($request->$types) {
             $filter = [];
             foreach ($request->$types as $type) {
-                array_push($filter, "$singularType = $type");
+                if ($singularType === "customer") {
+                    array_push($filter, "$singularType = '$type'");
+                } else {
+                    array_push($filter, "$singularType = $type");
+                }
             }
             array_push($this->filterOptions['filter'], $filter);
         }

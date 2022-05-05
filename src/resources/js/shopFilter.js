@@ -9,4 +9,8 @@ $(document).ready(function () {
         $("#category-cross").toggle();
         $("#filter-category-mobile").toggle();
     });
+
+    $("#toast-success>button").click(function () {
+        $("#toast-success").hide();
+    });
 });

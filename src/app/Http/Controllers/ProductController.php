@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;

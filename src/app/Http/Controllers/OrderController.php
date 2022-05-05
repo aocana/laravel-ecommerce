@@ -27,6 +27,7 @@ class OrderController extends Controller
 
     public function search(Request $request): View
     {
+        $request['customer'] = [auth()->user()->email];
         return view('order.index', [
             'orders' => $this->searchTemplate($request, Order::class),
         ]);

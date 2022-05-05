@@ -80,5 +80,6 @@ curl \
   -X POST 'http://localhost:7700/indexes/orders/settings/filterable-attributes' \
   -H 'Content-Type: application/json' \
   --data-binary '[
-      "status"
+      "status",
+			"customer"
   ]'
