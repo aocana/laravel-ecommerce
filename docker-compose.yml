@@ -43,16 +43,6 @@ services:
     networks:
       - laravel
 
-  redis:
-    image: redis:alpine
-    restart: unless-stopped
-    ports:
-      - 6379:6379
-    volumes:
-      - ./redis:/data
-    networks:
-      - laravel
-
   meilisearch:
     image: getmeili/meilisearch:latest
     ports:

@@ -60,7 +60,6 @@
                 @else
                 <p>No results found...</p>
                 @endif
-                {{ $brands->links() }}
             </div>
         </div>
     </div>

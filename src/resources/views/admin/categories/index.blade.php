@@ -60,7 +60,6 @@
                 @else
                 <p>No results</p>
                 @endif
-                {{ $categories->links() }}
             </div>
         </div>
     </div>

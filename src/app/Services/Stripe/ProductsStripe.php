@@ -3,6 +3,7 @@
 namespace App\Services\Stripe;
 
 use Stripe\StripeClient;
+use Laravel\Cashier\Cashier;
 
 class ProductsStripe
 {
@@ -49,9 +50,8 @@ class ProductsStripe
     public function updateProductPrice($currentPriceId, $productId, $data)
     {
         $stripePriceId = $currentPriceId;
-
         $stripePrice = $this->stripe->prices->retrieve($currentPriceId, [])->unit_amount;
-        $productPrice = str_replace('.', '', $data['price']);
+        $productPrice = (int) str_replace('.', '', $data['price']);
 
         if ($stripePrice == $productPrice) {
             $this->stripe->prices->update(
@@ -59,8 +59,8 @@ class ProductsStripe
                 ['active' => (bool) $data['is_visible']]
             );
         } else {
-            //set current inactive
-            $this->stripe->prices->update(
+            //search price
+            $this->stripe->prices->search(
                 $currentPriceId,
                 ['active' => false]
             );

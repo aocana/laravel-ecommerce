@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,8 +88,15 @@ class Product extends Model
         return $this->hasMany(OrderProduct::class);
     }
 
-    /* static function searchFilter(string $query, array $options)
+    /*  */
+    protected static function booted()
     {
-        return MeilisearchService::search('products', $query, $options);
-    } */
+        static::saving(function () {
+            Cache::forget('products');
+        });
+
+        static::deleted(function () {
+            Cache::forget('products');
+        });
+    }
 }

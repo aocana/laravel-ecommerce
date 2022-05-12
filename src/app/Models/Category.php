@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -40,5 +41,17 @@ class Category extends Model
             'id' => $this->id,
             'name' => $this->name
         ];
+    }
+
+    /* cache */
+    protected static function booted()
+    {
+        static::saving(function () {
+            Cache::forget('categories');
+        });
+
+        static::deleted(function () {
+            Cache::forget('categories');
+        });
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Laravel\Scout\Searchable;
 
 class Brand extends Model
 {
@@ -18,16 +19,6 @@ class Brand extends Model
         return $this->hasMany(Product::class);
     }
 
-    /*     static function searchFilter($query, $options)
-    {
-        $searchResults =  self::search($query, function ($meilisearch) use ($query, $options) {
-            return $meilisearch->search($query, $options);
-        })
-            ->paginate(9);
-
-        return $searchResults;
-    } */
-
     public function searchableAs(): string
     {
         return 'brands';
@@ -39,5 +30,17 @@ class Brand extends Model
             'id' => $this->id,
             'name' => $this->name
         ];
+    }
+
+    /* cache */
+    protected static function booted()
+    {
+        static::saving(function () {
+            Cache::forget('brands');
+        });
+
+        static::deleted(function () {
+            Cache::forget('brands');
+        });
     }
 }

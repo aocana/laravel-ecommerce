@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\FileService;
+use Illuminate\Support\Facades\Cache;
 use App\Services\Stripe\CheckoutStripe;
 use App\Services\Stripe\ProductsStripe;
 use App\Services\Stripe\CustomersStripe;
@@ -29,8 +30,14 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->categories = Category::latest()->get();
-        $this->brands = Brand::latest()->get();
+        $this->categories = Cache::remember('categories', 345600, function () {
+            return Category::latest()->get();
+        });
+
+        $this->brands = Cache::remember('brands', 345600, function () {
+            return Brand::latest()->get();
+        });
+
         $this->fileService = new FileService();
         $this->stripeService = new ProductsStripe();
         $this->stripeCheckout = new CheckoutStripe();
