@@ -3,7 +3,9 @@
 ![Status](https://img.shields.io/badge/Status-80%25-orange)
 
 Laravel e-commerce project implementing Stripe's payment gateway.
+
 We use Meilisearch as search engine.
+
 [View project](http://aurena.ovh:8089/)
 
 ## Technologies
